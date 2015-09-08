@@ -1,0 +1,1 @@
+dios_find_package_base(zlib zlib/zlib.h)

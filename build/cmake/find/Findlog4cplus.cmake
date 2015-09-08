@@ -1,0 +1,1 @@
+dios_find_package_base(log4cplus log4cplus/logger.h)

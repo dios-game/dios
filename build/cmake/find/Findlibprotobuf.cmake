@@ -1,0 +1,1 @@
+dios_find_package_base(libprotobuf libprotobuf/google/protobuf/message.h)
