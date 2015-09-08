@@ -3,7 +3,6 @@ REM 注释
 
 set ocd=%cd%
 cd /d %~dp0
-cd ..
 
 echo ##### 提示：读取配置文件 #####
 if exist ..\config.bat call ..\config.bat
@@ -22,22 +21,22 @@ if not exist  proj.android md proj.android
 cd proj.android
 
 echo #####提示：开始构建#####
-cmake -GNinja -DDXM_CMAKE_PLATFORM=ANDROID -DCMAKE_TOOLCHAIN_FILE=%DXM_CMAKE%\toolchain\android\android.toolchain.cmake -DCMAKE_BUILD_TYPE=Release -DANDROID_ABI="armeabi" -DANDROID_STL=gnustl_shared ..
+cmake -GNinja -DDIOS_CMAKE_PLATFORM=ANDROID -DCMAKE_TOOLCHAIN_FILE=%DIOS_CMAKE%\toolchain\android\android.toolchain.cmake -DCMAKE_BUILD_TYPE=Release -DANDROID_ABI="armeabi" -DANDROID_STL=gnustl_shared ..
 if %errorlevel% neq 0 goto :cmEnd
-cmake -GNinja -DDXM_CMAKE_PLATFORM=ANDROID -DCMAKE_TOOLCHAIN_FILE=%DXM_CMAKE%\toolchain\android\android.toolchain.cmake -DCMAKE_BUILD_TYPE=Release -DANDROID_ABI="armeabi" -DANDROID_STL=gnustl_shared ..
+cmake -GNinja -DDIOS_CMAKE_PLATFORM=ANDROID -DCMAKE_TOOLCHAIN_FILE=%DIOS_CMAKE%\toolchain\android\android.toolchain.cmake -DCMAKE_BUILD_TYPE=Release -DANDROID_ABI="armeabi" -DANDROID_STL=gnustl_shared ..
 if %errorlevel% neq 0 goto :cmEnd
 echo #####提示：构建结束#####
 
 echo #####提示：开始编译#####
-rem cmake --build .
+cmake --build .
 if %errorlevel% neq 0 goto :cmEnd
 echo #####提示：编译结束#####
 
 echo #####提示：开始安装#####
-rem cmake -DBUILD_TYPE="Debug" -P cmake_install.cmake
-rem if %errorlevel% neq 0 goto :cmEnd
-rem cmake -DBUILD_TYPE="Release" -P cmake_install.cmake
-rem if %errorlevel% neq 0 goto :cmEnd
+cmake -DBUILD_TYPE="Debug" -P cmake_install.cmake
+if %errorlevel% neq 0 goto :cmEnd
+cmake -DBUILD_TYPE="Release" -P cmake_install.cmake
+if %errorlevel% neq 0 goto :cmEnd
 echo #####提示：安装结束#####
 
 goto cmDone
@@ -47,8 +46,8 @@ pause
 exit
 
 :cmDone
-cmake -P dxm_cmake_compile_succeeded.cmake
-cmake -P dxm_cmake_install_succeeded.cmake
+cmake -P dios_cmake_compile_succeeded.cmake
+cmake -P dios_cmake_install_succeeded.cmake
 cd /d %ocd%
 
 @echo on

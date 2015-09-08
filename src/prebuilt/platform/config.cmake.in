@@ -1,5 +1,5 @@
 
-set(DIOS_CONFIG_TEMPLATE prebuit)
+SET(DIOS_CONFIG_TEMPLATE prebuit)
 SET(DIOS_CONFIG_MODULE @MODULE_BE_CREATED@) 
 
 
@@ -55,7 +55,6 @@ ENDMACRO()
 # 导出模块的library和头文件目录;
 # 
 MACRO(dios_config_find_module MODULE)
-
 
 	#  dios_find_module(<module>
 	#    [PACKAGE <package>]
