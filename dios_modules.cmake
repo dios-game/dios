@@ -12,7 +12,7 @@
 
 # 自定义;
 dios_register_regist_module(lib ${CMAKE_CURRENT_LIST_DIR}/templates/lib)
-dios_register_regist_module(foo ${CMAKE_CURRENT_LIST_DIR}/tests/foo)
+dios_register_regist_module(libfoo ${CMAKE_CURRENT_LIST_DIR}/tests/libfoo)
 dios_register_regist_module(dios_util ${CMAKE_CURRENT_LIST_DIR}/src/libs/dios_util)
 dios_register_regist_module(dios_com ${CMAKE_CURRENT_LIST_DIR}/src/libs/dios_com)
 

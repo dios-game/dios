@@ -5,9 +5,9 @@
 
 #ifdef LIB_AS_DLL
 	#if  defined ( LIB_EXPORT )
-	#define LIB_DECL DIOS_DLL_EXPORT
+	#define LIB_DECL DS_DLL_EXPORT
 	#else
-	#define LIB_DECL DIOS_DLL_IMPORT
+	#define LIB_DECL DS_DLL_IMPORT
 	#endif // LIB_EXPORT
 #else
 	#define LIB_DECL

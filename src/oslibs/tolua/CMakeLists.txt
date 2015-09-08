@@ -7,6 +7,6 @@ SET(DIOS_PROJECT_CURRENT_MODULE ${DIOS_CONFIG_MODULE}) # 设置项目; 为什么
 project(${DIOS_PROJECT_CURRENT_MODULE})
 
 # 加载dxm核心模块;
-include(${CMAKE_CURRENT_LIST_DIR}/dxm.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/dios.cmake)
 
 

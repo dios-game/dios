@@ -8,7 +8,7 @@
 #include "platform_macros.h"
 
 // math.h
-#if (DIOS_TARGET_PLATFORM == DIOS_PLATFORM_WIN32)
+#if (DS_TARGET_PLATFORM == DS_PLATFORM_WIN32)
 
 // for math.h on win32 platform
 #if !defined(_USE_MATH_DEFINES)
@@ -19,7 +19,7 @@
 #define isnan   _isnan
 #endif // isnan
 
-#endif // (DIOS_TARGET_PLATFORM == DIOS_PLATFORM_WIN32)
+#endif // (DS_TARGET_PLATFORM == DS_PLATFORM_WIN32)
 
 // std header
 #include <float.h>
@@ -35,7 +35,7 @@
 #include <functional>
 
 // stdint;
-#if (DIOS_TARGET_PLATFORM == DIOS_PLATFORM_WIN32)
+#if (DS_TARGET_PLATFORM == DS_PLATFORM_WIN32)
 #if _MSC_VER >= 1600
 #include <stdint.h>
 #else
@@ -50,7 +50,7 @@
 #include <unistd.h>
 #endif
 
-#if (DIOS_TARGET_PLATFORM == DIOS_PLATFORM_LINUX)
+#if (DS_TARGET_PLATFORM == DS_PLATFORM_LINUX)
 
 #define tanf tan
 #define sqrtf sqrt
@@ -59,4 +59,4 @@
 
 #endif
 
-#endif  // __DIOS_PLATFORM_H__
+#endif  // __DIIOS_PLATFORM_H__

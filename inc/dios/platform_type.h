@@ -5,35 +5,35 @@
 
 #include <stdint.h>
 
-typedef bool				dios_boolean;
+typedef bool				ds_boolean;
 
-typedef signed char			dios_int8;
-typedef unsigned char		dios_uint8;
-typedef short				dios_int16;
-typedef unsigned short		dios_uint16;
-typedef int					dios_int32;
-typedef unsigned int		dios_uint32;
-typedef long long			dios_int64;
-typedef unsigned long long	dios_uint64;
+typedef signed char			ds_int8;
+typedef unsigned char		ds_uint8;
+typedef short				ds_int16;
+typedef unsigned short		ds_uint16;
+typedef int					ds_int32;
+typedef unsigned int		ds_uint32;
+typedef long long			ds_int64;
+typedef unsigned long long	ds_uint64;
 
-typedef char				dios_char;
-typedef wchar_t				dios_wchar;
-typedef float				dios_float32;
-typedef double				dios_float64;
-typedef dios_uint8			dios_byte;
+typedef char				ds_char;
+typedef wchar_t				ds_wchar;
+typedef float				ds_float32;
+typedef double				ds_float64;
+typedef ds_uint8			ds_byte;
 
 
-typedef unsigned char		dios_uchar;
-typedef unsigned short		dios_ushort;
-typedef unsigned int		dios_uint;
-typedef unsigned long		dios_ulong;
+typedef unsigned char		ds_uchar;
+typedef unsigned short		ds_ushort;
+typedef unsigned int		ds_uint;
+typedef unsigned long		ds_ulong;
 
-typedef intptr_t			dios_intptr;
+typedef intptr_t			ds_intptr;
 
-struct dios_point{
+struct ds_point{
 	int x;
 	int y;
 };
 
 
-#endif  // __DIOS_PLATFORM_TYPE_H__
+#endif  // __ds_PLATFORM_TYPE_H__

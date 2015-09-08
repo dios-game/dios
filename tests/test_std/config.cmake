@@ -3,6 +3,7 @@
 set(DIOS_CONFIG_TEMPLATE console)
 SET(DIOS_CONFIG_MODULE test_std) 
 
+
 # 
 # 初始化工程, 配置基本变量;
 # 
@@ -47,6 +48,21 @@ MACRO(dios_config_module_init MODULE)
 	#
 	# dios_module_link_library(${MODULE} lib FALSE)
 	
+	# dios_module_link_library(${MODULE} lib false)
+	# dios_module_link_library(${MODULE} libfoo false)
+	# dios_module_link_library(${MODULE} dios_util false)
+	# dios_module_link_library(${MODULE} dios_com false)
+	# dios_module_link_library(${MODULE} lua false)
+	# dios_module_link_library(${MODULE} tolua false)
+	# dios_module_link_library(${MODULE} gtest false)
+	# dios_module_link_library(${MODULE} libevent false)
+	# dios_module_link_library(${MODULE} pthread false)
+	# dios_module_link_library(${MODULE} dl false)
+	# dios_module_link_library(${MODULE} socket false)
+	# dios_module_link_library(${MODULE} xml2 false)
+	# dios_module_link_library(${MODULE} z false)
+	# dios_module_link_library(${MODULE} inet false)
+	# dios_module_link_library(${MODULE} vld false)
 
 ENDMACRO()
 
