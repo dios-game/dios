@@ -50,6 +50,7 @@ exit
 cmake -P dxm_cmake_compile_succeeded.cmake
 cmake -P dxm_cmake_install_succeeded.cmake
 cd /d %ocd%
+
 @echo on
 
 goto :eof
