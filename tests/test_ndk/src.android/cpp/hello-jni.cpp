@@ -18,6 +18,11 @@
 #include <jni.h>
 #include <string>
 #include <map>
+#include "dios_util/util_crypto.h"
+
+#define XE_DOT ,
+#define XE_DEFINE_VAR(type, var) type var;
+
 
 extern "C" {
 /* This is a trivial JNI example where we use a native method
@@ -62,7 +67,14 @@ Java_com_example_hellojni_HelloJni_stringFromJNI( JNIEnv* env,
    #define ABI "unknown"
 #endif
     std::string out_string = "Hello from JNI !  Compiled with ABI " ABI ".";
-    return env->NewStringUTF(out_string.c_str());
+    std::string md5 = "123456 md5 value:" + dios::util::CCrypto::Md5("123456");
+	XE_DEFINE_VAR(std::map<int XE_DOT std::string>, map_md5);
+    // std::map<int, std::string>  map_md5;
+    map_md5[0] = md5;
+    // return (*env)->NewStringUTF(env, "Hello from JNI !  Compiled with ABI " ABI ".");
+    // return env->NewStringUTF(md5.c_str());
+    // return env->NewStringUTF("Hello from JNI !  Compiled with ABI " ABI ".");
+    return env->NewStringUTF(map_md5[0].c_str());
 }
 
 }

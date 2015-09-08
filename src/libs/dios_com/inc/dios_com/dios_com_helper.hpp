@@ -1,12 +1,12 @@
-#ifndef __DXM_COM_HELPER_H___
-#define __DXM_COM_HELPER_H___
+#ifndef __DIOS_COM_HELPER_H___
+#define __DIOS_COM_HELPER_H___
 
-#include "dxm_com_lib.h"
-#include "dxm_com_factory.hpp"
+#include "DIOS_com_lib.h"
+#include "DIOS_com_factory.hpp"
 
-NS_DXM_BEGIN
+NS_DIOS_BEGIN
 
-class DXM_COM_DECL CComHelper{
+class DIOS_COM_DECL CComHelper{
 public:
 	CComHelper();
 	~CComHelper();
@@ -78,7 +78,7 @@ public:
 	}
 };
 
-NS_DXM_END
+NS_DIOS_END
 
 
-#endif // __DXM_COM_HELPER_H___
+#endif // __DIOS_COM_HELPER_H___

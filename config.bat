@@ -18,7 +18,7 @@ rem -------------------------------
 set TEXTURE_PACKER_PATH=E:\TexturePacker\bin
 
 rem -------------------------------
-rem -- DXM 变量
+rem -- DIOS 变量
 rem -------------------------------
 set DIOS_PROJECT_PATH=%~dp0
 set DIOS_PATH=%DIOS_PROJECT_PATH%
@@ -38,14 +38,14 @@ set ANDROID_HOME=%ANDROID_SDK_HOME%
 set ANDROID_NDK=%ANDROID_NDK_HOME%
 
 rem -------------------------------
-rem -- DXM 变量
+rem -- DIOS 变量
 rem -------------------------------
 set DIOS_INSTALL=%DIOS_PROJECT_PATH%\install
 set DIOS_TOOLS=%DIOS_PATH%\build\tools\win
 set DIOS_CMAKE=%DIOS_PATH%\build\cmake
 
 rem -------------------------------
-rem -- DXM Compiler
+rem -- DIOS Compiler
 rem -------------------------------
 if defined VS140COMNTOOLS (
 	SET DIOS_COMPILER_TOOLS="%VS140COMNTOOLS%"

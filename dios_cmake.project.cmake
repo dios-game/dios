@@ -1,6 +1,6 @@
 # 
 # dios_cmake.cmake
-# dxm框架用的cmake主脚本
+# dios框架用的cmake主脚本
 # DIOS_CMAKE_PROJECT_DIRECTORY
 if(NOT DIOS_CMAKE_PROJECT_DIRECTORY)
 	SET(DIOS_CMAKE_PROJECT_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
@@ -20,20 +20,20 @@ ENDIF()
 # 
 # 加载库框架; 如果已经是库目录则无需加载;
 # 
-SET(ENGINE_LIB dxm)
+SET(ENGINE_LIB dios)
 if(EXISTS ${CMAKE_CURRENT_LIST_DIR}/${ENGINE_LIB}/dios_cmake.project.cmake)
 	INCLUDE(${CMAKE_CURRENT_LIST_DIR}/${ENGINE_LIB}/dios_cmake.project.cmake)
 endif()
 
 # 
-# 加载DxM框架
+# 加载 DIOS 框架
 # 
 if(EXISTS ${CMAKE_CURRENT_LIST_DIR}/dios_cmake.cmake)
 	INCLUDE(${CMAKE_CURRENT_LIST_DIR}/dios_cmake.cmake)
 endif()
 
 # 
-# 加载DxM模块设置
+# 加载 DIOS 模块设置
 # 
 if(EXISTS ${CMAKE_CURRENT_LIST_DIR}/dios_modules.cmake)
 	INCLUDE(${CMAKE_CURRENT_LIST_DIR}/dios_modules.cmake)

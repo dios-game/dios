@@ -1,7 +1,7 @@
 #ifndef COMPONENT_SERVICE_LIB_H
 #define COMPONENT_SERVICE_LIB_H
 
-#include "dxm/platform.h"
+#include "dios/platform.h"
 
 #ifdef COMPONENT_SERVICE_AS_DLL
 	#if  defined ( COMPONENT_SERVICE_EXPORT )

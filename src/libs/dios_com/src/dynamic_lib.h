@@ -1,7 +1,7 @@
 #ifndef __DYNAMIC_LIB_H__
 #define __DYNAMIC_LIB_H__
 
-#include "dxm/platform.h"
+#include "dios/platform.h"
 #include <memory>
 
 #if (DIOS_TARGET_PLATFORM == DIOS_PLATFORM_WIN32)
@@ -34,7 +34,7 @@ extern "C" {
 #include <string>
 using namespace std;
 
-NS_DIOS_BEGIN
+NS_DS_BEGIN
 class  CDynamicLib
 {
 	enum Status
@@ -65,5 +65,5 @@ private:
 	Status					load_status_;
 	DYNAMIC_LIB_HANDLE		dyn_lib_instance_; /// Handle to the loaded library.
 };
-NS_DIOS_END
+NS_DS_END
 #endif // DYNAMIC_LIB_H

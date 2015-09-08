@@ -9,7 +9,7 @@
 
 #include "dios_util/util_memory.hpp"
 
-namespace dxm{
+namespace dios{
 	typedef	std::string	ComID;
 	class ICom:public std::enable_shared_from_this<ICom>
 	{
@@ -21,7 +21,7 @@ namespace dxm{
 	public:
 		template<class InterfaceType>
 		std::shared_ptr<InterfaceType> QueryInterface(){
-			return dxm::DynamicCast<InterfaceType>(shared_from_this());
+			return dios::DynamicCast<InterfaceType>(shared_from_this());
 		}
 	};
 };

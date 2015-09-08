@@ -2,7 +2,7 @@
 #include "dios_factory_manager.h"
 #include "dios_util/util_log.h"
 
-namespace dxm{
+namespace dios{
 
 	CComFactoryManager::CComFactoryManager()
 	{

@@ -2,7 +2,7 @@
 #define __NETWORK_CONTEXT_H___
 
 
-#include "dxm/platform.h"
+#include "dios/platform.h"
 
 NS_XE_BEGIN 
 class IConnectorSink;

@@ -14,15 +14,15 @@ if exist ..\..\..\..\..\..\..\config.bat call ..\..\..\..\..\..\..\config.bat
 
 echo ##### 提示：变量配置 #####
 set LIBEVENT_VERSION_NAME=libevent-2.0.21-stable
-SET DXM_PREBUILT=%cd%\prebuilt
-SET DXM_PLATFORM=win_x86
+SET DIOS_PREBUILT=%cd%\prebuilt
+SET DIOS_PLATFORM=win_x86
 
 echo ##### 提示：解压 %LIBEVENT_VERSION_NAME% #####
 if not exist %LIBEVENT_VERSION_NAME% (
 	
 	rem 解压操作
-	%DXM_TOOLS%\7za.exe x -y %LIBEVENT_VERSION_NAME%.tar.gz
-	%DXM_TOOLS%\7za.exe x -y %LIBEVENT_VERSION_NAME%.tar
+	%DIOS_TOOLS%\7za.exe x -y %LIBEVENT_VERSION_NAME%.tar.gz
+	%DIOS_TOOLS%\7za.exe x -y %LIBEVENT_VERSION_NAME%.tar
 	del %LIBEVENT_VERSION_NAME%.tar /Q
 	
 	rem 代码补丁
@@ -38,16 +38,16 @@ if %errorlevel% neq 0 goto :cmEnd
 
 echo ##### 提示：安装 libevent #####
 
-if not exist %DXM_PREBUILT%\lib\%DXM_PLATFORM%\libevent mkdir %DXM_PREBUILT%\lib\%DXM_PLATFORM%
-if not exist %DXM_PREBUILT%\inc\libevent mkdir %DXM_PREBUILT%\inc\libevent
-if not exist %DXM_PREBUILT%\inc\libevent\WIN32-Code mkdir %DXM_PREBUILT%\inc\libevent\WIN32-Code
+if not exist %DIOS_PREBUILT%\lib\%DIOS_PLATFORM%\libevent mkdir %DIOS_PREBUILT%\lib\%DIOS_PLATFORM%
+if not exist %DIOS_PREBUILT%\inc\libevent mkdir %DIOS_PREBUILT%\inc\libevent
+if not exist %DIOS_PREBUILT%\inc\libevent\WIN32-Code mkdir %DIOS_PREBUILT%\inc\libevent\WIN32-Code
 
-copy libevent.lib %DXM_PREBUILT%\lib\%DXM_PLATFORM%\
-copy libevent_core.lib %DXM_PREBUILT%\lib\%DXM_PLATFORM%\
-copy libevent_extras.lib %DXM_PREBUILT%\lib\%DXM_PLATFORM%\
+copy libevent.lib %DIOS_PREBUILT%\lib\%DIOS_PLATFORM%\
+copy libevent_core.lib %DIOS_PREBUILT%\lib\%DIOS_PLATFORM%\
+copy libevent_extras.lib %DIOS_PREBUILT%\lib\%DIOS_PLATFORM%\
 
-xcopy /y/s include\*.h %DXM_PREBUILT%\inc\libevent
-xcopy /y/s WIN32-Code\*.h %DXM_PREBUILT%\inc\libevent
+xcopy /y/s include\*.h %DIOS_PREBUILT%\inc\libevent
+xcopy /y/s WIN32-Code\*.h %DIOS_PREBUILT%\inc\libevent
 
 rem ---------------------
 cd /d %~dp0
@@ -60,10 +60,10 @@ if not exist  proj.win32 md proj.win32
 cd proj.win32
 
 echo #####提示：开始构建#####
-cmake -DDXM_CMAKE_PLATFORM=WIN32 ..
+cmake -DDIOS_CMAKE_PLATFORM=WIN32 ..
 echo %errorlevel%
 if %errorlevel% neq 0 goto :cmEnd
-cmake -DDXM_CMAKE_PLATFORM=WIN32 ..
+cmake -DDIOS_CMAKE_PLATFORM=WIN32 ..
 echo %errorlevel%
 if %errorlevel% neq 0 goto :cmEnd
 echo #####提示：构建结束#####
@@ -88,8 +88,8 @@ pause
 exit
 
 :cmDone
-cmake -P dxm_cmake_compile_succeeded.cmake
-cmake -P dxm_cmake_install_succeeded.cmake
+cmake -P DIOS_cmake_compile_succeeded.cmake
+cmake -P DIOS_cmake_install_succeeded.cmake
 cd /d %ocd%
 
 goto :eof

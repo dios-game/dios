@@ -1,7 +1,7 @@
-dxm-cmake
+dios-cmake
 
-`https://git.oschina.net/dxm-game/dxm-cmake.git`
-`https://github.com/maodazheng/dxm-cmake.git`
+`https://git.oschina.net/dios-game/dios-cmake.git`
+`https://github.com/maodazheng/dios-cmake.git`
 
 功能简介
 ------------------

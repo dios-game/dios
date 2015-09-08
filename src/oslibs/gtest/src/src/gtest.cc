@@ -3023,7 +3023,7 @@ class XmlUnitTestResultPrinter : public EmptyTestEventListener {
   }
 
   // May c appear in a well-formed XML document?
-  static bool IsValidXmlCharacter(char c) {
+  static bool IsValiDIOSlCharacter(char c) {
     return IsNormalizableWhitespace(c) || c >= 0x20;
   }
 
@@ -3034,7 +3034,7 @@ class XmlUnitTestResultPrinter : public EmptyTestEventListener {
   static std::string EscapeXml(const std::string& str, bool is_attribute);
 
   // Returns the given string with all characters invalid in XML removed.
-  static std::string RemoveInvalidXmlCharacters(const std::string& str);
+  static std::string RemoveInvaliDIOSlCharacters(const std::string& str);
 
   // Convenience wrapper around EscapeXml when str is an attribute value.
   static std::string EscapeXmlAttribute(const std::string& str) {
@@ -3165,7 +3165,7 @@ std::string XmlUnitTestResultPrinter::EscapeXml(
           m << '"';
         break;
       default:
-        if (IsValidXmlCharacter(ch)) {
+        if (IsValiDIOSlCharacter(ch)) {
           if (is_attribute && IsNormalizableWhitespace(ch))
             m << "&#x" << String::FormatByte(static_cast<unsigned char>(ch))
               << ";";
@@ -3182,12 +3182,12 @@ std::string XmlUnitTestResultPrinter::EscapeXml(
 // Returns the given string with all characters invalid in XML removed.
 // Currently invalid characters are dropped from the string. An
 // alternative is to replace them with certain characters such as . or ?.
-std::string XmlUnitTestResultPrinter::RemoveInvalidXmlCharacters(
+std::string XmlUnitTestResultPrinter::RemoveInvaliDIOSlCharacters(
     const std::string& str) {
   std::string output;
   output.reserve(str.size());
   for (std::string::const_iterator it = str.begin(); it != str.end(); ++it)
-    if (IsValidXmlCharacter(*it))
+    if (IsValiDIOSlCharacter(*it))
       output.push_back(*it);
 
   return output;
@@ -3318,7 +3318,7 @@ void XmlUnitTestResultPrinter::OutputXmlTestInfo(::std::ostream* stream,
               << EscapeXmlAttribute(summary.c_str())
               << "\" type=\"\">";
       const string detail = location + "\n" + part.message();
-      OutputXmlCDataSection(stream, RemoveInvalidXmlCharacters(detail).c_str());
+      OutputXmlCDataSection(stream, RemoveInvaliDIOSlCharacters(detail).c_str());
       *stream << "</failure>\n";
     }
   }

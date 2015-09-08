@@ -3,8 +3,8 @@
 
 #include "dios/platform.h"
 
-#ifdef DS_UTIL_AS_DLL
-	#if  defined ( DS_UTIL_EXPORT )
+#ifdef DIOS_UTIL_AS_DLL
+	#if  defined ( DIOS_UTIL_EXPORT )
 	#define DS_UTIL_DECL DS_DLL_EXPORT
 	#else
 	#define DS_UTIL_DECL DS_DLL_IMPORT

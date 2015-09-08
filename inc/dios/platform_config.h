@@ -6,7 +6,7 @@
 // pre configure
 //////////////////////////////////////////////////////////////////////////
 
-// define supported target platform macro which DXM uses.
+// define supported target platform macro which DIOS uses.
 #define DS_PLATFORM_UNKNOWN            0
 #define DS_PLATFORM_IOS                1
 #define DS_PLATFORM_ANDROID            2

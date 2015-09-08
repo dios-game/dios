@@ -5,7 +5,7 @@
 #include "dios_com_interface.hpp"
 #include "dios_com_factory.hpp"
 
-NS_DIOS_BEGIN
+NS_DS_BEGIN
 
 class CDynamicLib;
 class CDynamicPlugins;
@@ -27,7 +27,7 @@ namespace detail{
 
 		ICom::Ptr CreateCom(const ComID& component_id);
 
-		DIOS_SINGLETON(CComContext);
+		DS_SINGLETON(CComContext);
 
 	private:
 		CComFactoryManager* factories_;
@@ -35,6 +35,6 @@ namespace detail{
 	};
 }
 
-NS_DIOS_END
+NS_DS_END
 
 #endif // __DIOS_COM_CONTEXT_H__

@@ -1,6 +1,6 @@
 # 
 # dios_cmake.cmake
-# dxm框架用的cmake主脚本
+# dios 框架用的cmake主脚本
 # DIOS_CMAKE_PROJECT_DIRECTORY
 if(NOT DIOS_CMAKE_PROJECT_DIRECTORY)
 	SET(DIOS_CMAKE_PROJECT_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})

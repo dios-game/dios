@@ -1,14 +1,14 @@
 
 # #
-# DxM自带模块注册
+# DIOS 自带模块注册
 # #
 # 原型
 # dios_register_regist_module(module_name module_path)   ==> dios_register_regist_module(module_name module_path module_name) 
 # dios_register_regist_module(module_name module_path library1 library2 library3)
 
 # #
-# dios_register_regist_module(protobuf dxm/src/oslibs/protobuf)
-# dios_register_regist_module(libcocos2dx dxm/src/oslibs/libcocos2dx cocos2dx cocosdenshion cocos_extension box2d)
+# dios_register_regist_module(protobuf dios/src/oslibs/protobuf)
+# dios_register_regist_module(libcocos2dx dios/src/oslibs/libcocos2dx cocos2dx cocosdenshion cocos_extension box2d)
 
 # 自定义;
 dios_register_regist_module(lib ${CMAKE_CURRENT_LIST_DIR}/templates/lib)

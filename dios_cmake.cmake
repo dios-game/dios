@@ -1,7 +1,7 @@
 
 # 
 # dios_cmake.cmake
-# dxm框架用的cmake主脚本
+# dios框架用的cmake主脚本
 # DIOS_CMAKE_ROOT_DIRECTORY
 # dios_cmake.cmake放在最外面的原因是因为这里才能获得 DIOS_CMAKE_ROOT_DIRECTORY
 IF(NOT DIOS_CMAKE_PROJECT_DIRECTORY)
@@ -12,7 +12,7 @@ SET( DIOS_CMAKE_ROOT_DIRECTORY ${CMAKE_CURRENT_LIST_DIR} )
 SET( DIOS_CMAKE_TEMPLATE_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/templates )
 
 # 
-# 加载DxM框架
+# 加载DIOS框架
 # 
 INCLUDE(${DIOS_CMAKE_ROOT_DIRECTORY}/build/cmake/dios_cmake_init.cmake)
 

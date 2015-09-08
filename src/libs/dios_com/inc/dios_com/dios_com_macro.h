@@ -1,7 +1,7 @@
-#ifndef __DXM_COM_MACRO_H__
-#define __DXM_COM_MACRO_H__
+#ifndef __DIOS_COM_MACRO_H__
+#define __DIOS_COM_MACRO_H__
 
-#include "dxm_com_lib.h"
+#include "DIOS_com_lib.h"
 #include <typeinfo>
 
 // ###################################################
@@ -87,13 +87,13 @@ public:
 
 // ###################################################
 
-#ifdef DXM_COM_AS_DLL // dynamic plug-in export
+#ifdef DIOS_COM_AS_DLL // dynamic plug-in export
 
-#if (DXM_TARGET_PLATFORM == DXM_PLATFORM_WIN32)
+#if (DIOS_TARGET_PLATFORM == DIOS_PLATFORM_WIN32)
 #define _PLUGIN_DLL_DECL _declspec ( dllexport )
 #else
 #define _PLUGIN_DLL_DECL
-#endif // DXM_PLATFORM_WIN32
+#endif // DIOS_PLATFORM_WIN32
 
 #define PLUGIN_EXPORT(plugin_name)		\
 extern "C" {								\
@@ -121,4 +121,4 @@ _PLUGIN_EXPORT_CLASS_NAME(plugin_name)::_PLUGIN_EXPORT_CLASS_NAME(plugin_name)()
 
 #endif
 
-#endif //__DXM_COM_MACRO_H__
+#endif //__DIOS_COM_MACRO_H__

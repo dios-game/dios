@@ -4,18 +4,18 @@
 #include "dynamic_plugins.h"
 #include "dios_util/util_log.h"
 
-NS_DIOS_BEGIN
+NS_DS_BEGIN
 namespace detail{
 
-	CComContext::CComContext() :factories_(new dxm::CComFactoryManager), plugins_(new CDynamicPlugins)
+	CComContext::CComContext() :factories_(new dios::CComFactoryManager), plugins_(new CDynamicPlugins)
 	{
 
 	}
 
 	CComContext::~CComContext()
 	{
-		DIOS_SAFE_DELETE(factories_);
-		DIOS_SAFE_DELETE(plugins_);
+		DS_SAFE_DELETE(factories_);
+		DS_SAFE_DELETE(plugins_);
 	}
 
 	void CComContext::SetLog(const std::function<void(int, const std::string&)>& log_callback)
@@ -50,4 +50,4 @@ namespace detail{
 	}
 }
 
-NS_DIOS_END
+NS_DS_END

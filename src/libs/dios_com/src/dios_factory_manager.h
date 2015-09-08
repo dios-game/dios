@@ -6,7 +6,7 @@
 #include "dynamic_plugins.h"
 #include "pthread/pthread.h"
 
-namespace dxm  {
+namespace dios  {
 
 	class CComFactoryManager
 	{

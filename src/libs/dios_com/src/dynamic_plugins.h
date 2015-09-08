@@ -7,7 +7,7 @@
 
 #include "dynamic_lib.h"
 
-NS_DIOS_BEGIN
+NS_DS_BEGIN
 class  CDynamicPlugins
 {
 public:
@@ -19,6 +19,6 @@ public:
 private:
 	bool _LoadPlugin(const std::string& plugin_name, CDynamicLib::Ptr lib_ptr);
 };
-NS_DIOS_END
+NS_DS_END
 
 #endif // DYNAMIC_PLUGINS_H

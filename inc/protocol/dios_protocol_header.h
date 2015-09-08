@@ -12,7 +12,7 @@ typedef int MsgCode;
 
 #define COMMAND_TO_NET(command) ((command>>8) & 0xFF)
 
-enum DxmSystemEnum{
+enum DiosSystemEnum{
 
 	DIOS_SYSTEM_INVALID = 0,
 	DIOS_SYSTEM_REQUEST_RESPONSE_ACK = 251,
@@ -22,7 +22,7 @@ enum DxmSystemEnum{
 	DIOS_SYSTEM_MAX = 255,
 };
 
-enum DxmNetTypeEnum{
+enum DiosNetTypeEnum{
 
 	DIOS_NET_INVALID = 0,
 	DIOS_NET_ANY = 251,
@@ -32,7 +32,7 @@ enum DxmNetTypeEnum{
 	DIOS_NET_MAX = 255,
 };
 
-enum DxmCommandEnum
+enum DiosCommandEnum
 {
 	// ================ 华丽的分割线 ======================
 	// DIOS_SYSTEM_GROUP_SERVER

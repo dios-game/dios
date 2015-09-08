@@ -17,17 +17,17 @@
 # -------------------------------
 
 # -------------------------------
-# -- DxM
+# -- DIOS
 # -------------------------------
-DXM_FRAMEWORK=$(pwd)/$(dirname $0)
-DXM_TOOLS=${DXM_FRAMEWORK}/dxm/tools
-DXM_INSTALL=${DXM_FRAMEWORK}/dependencies
-DXM_CMAKE=${DXM_FRAMEWORK}/dxm/cmake
+DIOS_FRAMEWORK=$(pwd)/$(dirname $0)
+DIOS_TOOLS=${DIOS_FRAMEWORK}/dios/tools
+DIOS_INSTALL=${DIOS_FRAMEWORK}/dependencies
+DIOS_CMAKE=${DIOS_FRAMEWORK}/dios/cmake
 
 # -- 导出所有变量到临时文件
-echo $DXM_FRAMEWORK >var_dxm_framework.txt
-echo $DXM_TOOLS >var_dxm_tools.txt
-echo $DXM_INSTALL >var_DXM_INSTALL.txt
-echo $DXM_CMAKE >var_dxm_cmake.txt
+echo $DIOS_FRAMEWORK >var_dios_framework.txt
+echo $DIOS_TOOLS >var_dios_tools.txt
+echo $DIOS_INSTALL >var_DIOS_INSTALL.txt
+echo $DIOS_CMAKE >var_dios_cmake.txt
 
-chmod 777 ${DXM_INSTALL}/inc
+chmod 777 ${DIOS_INSTALL}/inc

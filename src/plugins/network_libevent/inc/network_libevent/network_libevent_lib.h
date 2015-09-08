@@ -1,7 +1,7 @@
 #ifndef NETWORK_LIBEVENT_LIB_H
 #define NETWORK_LIBEVENT_LIB_H
 
-#include "dxm/platform.h"
+#include "dios/platform.h"
 
 #ifdef NETWORK_LIBEVENT_AS_DLL
 	#if  defined ( NETWORK_LIBEVENT_EXPORT )

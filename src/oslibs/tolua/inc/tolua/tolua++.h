@@ -155,7 +155,7 @@ TOLUA_API void tolua_dobuffer(lua_State* L, char* B, unsigned int size, const ch
 
 TOLUA_API int class_gc_event (lua_State* L);
 
-// dxm modify;
+// dios modify;
 TOLUA_API int lua_isusertype (lua_State* L, int lo, const char* type);
 TOLUA_API int tolua_bnd_cast (lua_State* L);
 

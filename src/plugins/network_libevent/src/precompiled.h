@@ -14,7 +14,7 @@
 #include "libevent/event2/listener.h"
 #include "libevent/event2/thread.h"
 
-#include "dxm/platform.h"
+#include "dios/platform.h"
 
 #ifndef DIOS_PLATFORM_WIN32
 #include <arpa/inet.h>

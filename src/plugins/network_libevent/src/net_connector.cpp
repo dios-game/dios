@@ -1,16 +1,16 @@
 #include "precompiled.h"
 #include "net_connector.h"
 #include "net_service_internal.h"
-#include "dxm_util/util_timer.h"
+#include "DIOS_util/util_timer.h"
 
 //	read event
 void onRead( struct bufferevent * bev, void * ctx ) {
 	
-	DXM_NDC("onRead");		  
+	DIOS_NDC("onRead");		  
 
 	CConnector * connector = (CConnector*)ctx;
 	IConnector::Ptr ref = connector->shared_from_this();
-	// DXM_COMPONENT_LOG(DXM_COMPONENT_LOG_LEVEL_ERROR, "[%d]read once[connector(%s:%d)]", xenon::util::CTimer::GetMilliSecond(), connector->remote_ip().c_str(), connector->remote_port());
+	// DIOS_COMPONENT_LOG(DIOS_COMPONENT_LOG_LEVEL_ERROR, "[%d]read once[connector(%s:%d)]", xenon::util::CTimer::GetMilliSecond(), connector->remote_ip().c_str(), connector->remote_port());
 
 	char* buffer = &(*connector->GetRecvBuffer()->begin());
 	unsigned int size = connector->GetRecvBuffer()->size();
@@ -20,7 +20,7 @@ void onRead( struct bufferevent * bev, void * ctx ) {
 		if(read_size)
 		{	
 			connector->OnRecv(buffer, read_size);
-			DXM_COMPONENT_LOG(DXM_COMPONENT_LOG_LEVEL_TRACE, "read data(%d) [connector(%s:%d)]", read_size, connector->remote_ip().c_str(), connector->remote_port());
+			DIOS_COMPONENT_LOG(DIOS_COMPONENT_LOG_LEVEL_TRACE, "read data(%d) [connector(%s:%d)]", read_size, connector->remote_ip().c_str(), connector->remote_port());
 		}
 	} while (read_size == size);
 
@@ -29,10 +29,10 @@ void onRead( struct bufferevent * bev, void * ctx ) {
 //	write event
 void onWrite( struct bufferevent * bev, void * ctx ) {
 
-	DXM_NDC("onWrite");
+	DIOS_NDC("onWrite");
 	CConnector * connector = (CConnector*)ctx;
 	size_t size = evbuffer_get_length(bufferevent_get_output(bev));
-	DXM_COMPONENT_LOG(DXM_COMPONENT_LOG_LEVEL_ERROR, "[%ud]onWrite data(%d) [connector(%s:%d)]", xenon::util::CTimer::GetMilliSecond(), size, connector->remote_ip().c_str(), connector->remote_port());
+	DIOS_COMPONENT_LOG(DIOS_COMPONENT_LOG_LEVEL_ERROR, "[%ud]onWrite data(%d) [connector(%s:%d)]", xenon::util::CTimer::GetMilliSecond(), size, connector->remote_ip().c_str(), connector->remote_port());
 	connector->OnSend(size);
 	if(connector->shutdown() && size == 0) {
 		::shutdown(connector->sock_id(), 1);
@@ -42,9 +42,9 @@ void onWrite( struct bufferevent * bev, void * ctx ) {
 //	error event
 void onError( struct bufferevent * bev, short what, void * ctx ) {
 
-	DXM_NDC("onError");
+	DIOS_NDC("onError");
 	CConnector * connector = (CConnector*)ctx;
-	DXM_COMPONENT_LOG(DXM_COMPONENT_LOG_LEVEL_TRACE, "[what: %d connector(%s:%d)]", what, connector->remote_ip().c_str(), connector->remote_port());
+	DIOS_COMPONENT_LOG(DIOS_COMPONENT_LOG_LEVEL_TRACE, "[what: %d connector(%s:%d)]", what, connector->remote_ip().c_str(), connector->remote_port());
 	connector->ShutDownImmediately();
 }
 
@@ -61,14 +61,14 @@ CConnector::~CConnector( void ) {
 
 bool CConnector::Init( int sock_id, IConnectorSink* sink, struct sockaddr* remote_addr ) {
 
-	DXM_NDC("CConnector::Init");
+	DIOS_NDC("CConnector::Init");
 	net_shutdown_listener_ = net_service_impl_->RegisterShutdownEventListener(std::bind(&IConnector::Shutdown, shared_from_this() ));
 	
 	sock_id_ = sock_id;
 	bufferev_ = std::shared_ptr<bufferevent>(bufferevent_socket_new(net_service_impl_->ev_base(), sock_id, BEV_OPT_THREADSAFE), std::bind(bufferevent_free, _1));
 	if(!bufferev_) {
 		net_shutdown_listener_.Disconnect();
-		DXM_COMPONENT_LOG(DXM_COMPONENT_LOG_LEVEL_ERROR, "create bufferevent socket failed.");
+		DIOS_COMPONENT_LOG(DIOS_COMPONENT_LOG_LEVEL_ERROR, "create bufferevent socket failed.");
 		return false;
 	}
 
@@ -78,11 +78,11 @@ bool CConnector::Init( int sock_id, IConnectorSink* sink, struct sockaddr* remot
 	/* 获取本地地址和端口 */
 	struct sockaddr_in addr;
 	int addrlen = sizeof(addr);
-#ifdef DXM_PLATFORM_WIN32
+#ifdef DIOS_PLATFORM_WIN32
 	getsockname(sock_id, (sockaddr*)&addr, &addrlen);
 #else
 	getsockname(sock_id, (sockaddr*)&addr, (socklen_t*)&addrlen);
-#endif // DXM_PLATFORM_WIN32
+#endif // DIOS_PLATFORM_WIN32
 
 	local_ip_ = inet_ntoa(addr.sin_addr);
 	local_port_ = ntohs(addr.sin_port);
@@ -103,16 +103,16 @@ bool CConnector::Init( int sock_id, IConnectorSink* sink, struct sockaddr* remot
 	getsockopt(sock_id, SOL_SOCKET, SO_RCVBUF, (char*)&optval, &size);	 
 	getsockopt(sock_id, IPPROTO_TCP, TCP_NODELAY, (char*)&optval, &size);
 
-	DXM_COMPONENT_LOG(DXM_COMPONENT_LOG_LEVEL_TRACE, "init connector ok.[connector(%s:%d)]", remote_ip_.c_str(), remote_port_);
+	DIOS_COMPONENT_LOG(DIOS_COMPONENT_LOG_LEVEL_TRACE, "init connector ok.[connector(%s:%d)]", remote_ip_.c_str(), remote_port_);
 	return true;
 }
 
 bool CConnector::Send( const void * buffer, unsigned int size ) {
 	
-	DXM_NDC("CConnector::Send");
-	DXM_COMPONENT_LOG(DXM_COMPONENT_LOG_LEVEL_ERROR, "[%ud] send data(%d)[connector(%s:%d)]", xenon::util::CTimer::GetMilliSecond(), size, remote_ip_.c_str(), remote_port_);
+	DIOS_NDC("CConnector::Send");
+	DIOS_COMPONENT_LOG(DIOS_COMPONENT_LOG_LEVEL_ERROR, "[%ud] send data(%d)[connector(%s:%d)]", xenon::util::CTimer::GetMilliSecond(), size, remote_ip_.c_str(), remote_port_);
 	if(shutdown_) {
-		DXM_COMPONENT_LOG(DXM_COMPONENT_LOG_LEVEL_ERROR, "connector is shutdowned yet[connector(%s:%d)]", remote_ip_.c_str(), remote_port_);
+		DIOS_COMPONENT_LOG(DIOS_COMPONENT_LOG_LEVEL_ERROR, "connector is shutdowned yet[connector(%s:%d)]", remote_ip_.c_str(), remote_port_);
 		return false;
 	}
 
@@ -122,16 +122,16 @@ bool CConnector::Send( const void * buffer, unsigned int size ) {
 		return true;
 	}
 
-	DXM_COMPONENT_LOG(DXM_COMPONENT_LOG_LEVEL_ERROR, "bufferev is null[connector(%s:%d)]", remote_ip_.c_str(), remote_port_);
+	DIOS_COMPONENT_LOG(DIOS_COMPONENT_LOG_LEVEL_ERROR, "bufferev is null[connector(%s:%d)]", remote_ip_.c_str(), remote_port_);
 	return false;
 }
 
 void CConnector::Shutdown( void ) {
 
-	DXM_NDC("CConnector::Shutdown");
-	DXM_COMPONENT_LOG(DXM_COMPONENT_LOG_LEVEL_TRACE, "shutdown connector[connector(%s:%d)]", remote_ip_.c_str(), remote_port_);
+	DIOS_NDC("CConnector::Shutdown");
+	DIOS_COMPONENT_LOG(DIOS_COMPONENT_LOG_LEVEL_TRACE, "shutdown connector[connector(%s:%d)]", remote_ip_.c_str(), remote_port_);
 	if(shutdown_) {
-		DXM_COMPONENT_LOG(DXM_COMPONENT_LOG_LEVEL_ERROR, "connector is shutdowned yet[connector(%s:%d)]", remote_ip_.c_str(), remote_port_);
+		DIOS_COMPONENT_LOG(DIOS_COMPONENT_LOG_LEVEL_ERROR, "connector is shutdowned yet[connector(%s:%d)]", remote_ip_.c_str(), remote_port_);
 		return;
 	}
 
@@ -151,9 +151,9 @@ void CConnector::Shutdown( void ) {
 void CConnector::ShutDownImmediately( void ) {
 	
 	IConnector::Ptr ref = shared_from_this();
-	DXM_NDC("CConnector::ShutDownImmediately");
+	DIOS_NDC("CConnector::ShutDownImmediately");
 
-	DXM_COMPONENT_LOG(DXM_COMPONENT_LOG_LEVEL_TRACE, "shutdown connector immediately[connector(%s:%d)]", remote_ip_.c_str(), remote_port_);
+	DIOS_COMPONENT_LOG(DIOS_COMPONENT_LOG_LEVEL_TRACE, "shutdown connector immediately[connector(%s:%d)]", remote_ip_.c_str(), remote_port_);
 	shutdown_ = true;
 	if(bufferev_)
 	{
@@ -167,11 +167,11 @@ void CConnector::ShutDownImmediately( void ) {
 		sink_ = 0;
 	}
 	net_shutdown_listener_.Disconnect();
-#ifdef DXM_PLATFORM_WIN32
+#ifdef DIOS_PLATFORM_WIN32
 	closesocket(sock_id_);
 #else
 	close(sock_id_);
-#endif // DXM_PLATFORM_WIN32
+#endif // DIOS_PLATFORM_WIN32
 }
 
 void CConnector::OnSend( unsigned int size ) {

@@ -49,13 +49,12 @@ MACRO(dios_config_module_init MODULE)
 	# dios_module_link_library(${MODULE} lib FALSE)
 	
 	# dios_module_link_library(${MODULE} lib false)
-	# dios_module_link_library(${MODULE} libfoo false)
-	# dios_module_link_library(${MODULE} dios_util false)
+	# dios_module_link_library(${MODULE} foo false)
+	dios_module_link_library(${MODULE} dios_util false)
 	# dios_module_link_library(${MODULE} dios_com false)
 	# dios_module_link_library(${MODULE} lua false)
 	# dios_module_link_library(${MODULE} tolua false)
 	# dios_module_link_library(${MODULE} gtest false)
-	# dios_module_link_library(${MODULE} libevent false)
 	# dios_module_link_library(${MODULE} pthread false)
 	# dios_module_link_library(${MODULE} dl false)
 	# dios_module_link_library(${MODULE} socket false)
@@ -72,12 +71,10 @@ ENDMACRO()
 # 
 MACRO(dios_config_find_module MODULE)
 
-	# 
 	#  dios_find_module(<module>
 	#    [PACKAGE <package>]
 	#    [COMPONENTS <component...>]
 	#    [HEADERS <path>])
-	# 
 
 	dios_find_module(${MODULE})
 

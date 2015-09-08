@@ -5,7 +5,7 @@
 
 #include "dios_com_interface.hpp"
 
-namespace dxm{
+namespace dios{
 	namespace detail{
 		class CComFactory{
 		public:

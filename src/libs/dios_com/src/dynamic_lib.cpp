@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include "dios_util/util_log.h"
 
-NS_DIOS_BEGIN
+NS_DS_BEGIN
 //-----------------------------------------------------------------------
 CDynamicLib::CDynamicLib(const string&  name) 
 	:  dyn_lib_instance_(NULL), load_status_(CDynamicLib::ST_UNLOADED)
@@ -119,4 +119,4 @@ string CDynamicLib::GetLastError(void)
 	return std::string(dlerror());
 #endif
 }
-NS_DIOS_END
+NS_DS_END
