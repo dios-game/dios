@@ -56,7 +56,7 @@ public:
 			free_file_data_function_(data);
 			return;
 		}
-		DS_SAFE_DELETE_ARRAY(data);
+		DS_SAFE_FREE(data);
 		return;
 	}
 
@@ -247,7 +247,7 @@ public:
 	}
 
 	// »ñÈ¡Ãû³Æ;
-	char* GetName(void) const {
+	std::string GetName(void) const {
 
 		if(node_) {
 			return node_->name();

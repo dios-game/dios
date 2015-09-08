@@ -23,7 +23,7 @@ public:
 	~CBatchTaskList(void);
 
 	// 推送任务: 此操作单线程操作;
-	ds_boolean PushTask(std::function<void(CBatchTaskList::Ptr&)> task_function);
+	ds_boolean PushTask(std::function<void(CBatchTaskList::Ptr)> task_function);
 
 	// 执行任务;
 	void DoAllTask(std::function<void()> complete_callback);
@@ -37,7 +37,7 @@ public:
 	void ReleaseUncompletedTaskRef( void );
 private:
 
-	std::list< std::function<void(CBatchTaskList::Ptr&)> > task_function_list_;
+	std::list< std::function<void(CBatchTaskList::Ptr)> > task_function_list_;
 	std::function<void()> complete_callback_; 
 
 	ds_int32 task_uncompleted_count_;

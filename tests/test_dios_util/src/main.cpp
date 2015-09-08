@@ -83,8 +83,8 @@ TEST(UtilTest, DirtyDataTest)
 TEST(UtilTest, SerializerTest)
 {
 	char buff[1024] = {0};
-	dios_byte one;
-	dios_int32 two;
+	ds_byte one;
+	ds_int32 two;
 	std::string three;
 	dios::util::CByteArray buffer(buff, 1024);
 	dios::util::CSerializer serializer(buffer, 0);
@@ -163,15 +163,15 @@ TEST_F(CryptoTest, DecryptXOR){
 
 TEST(TimeTest, TimeTest1){
 
-	dios_uint64 now = 1435753942;
-	dios_uint64 next = now + 1000;
+	ds_uint64 now = 1435753942;
+	ds_uint64 next = now + 1000;
 
 	std::string now_date_time = dios::util::CTime::ToDateTimeString(now);
 	std::string now_date = dios::util::CTime::ToDateString(now);
 	std::string now_time = dios::util::CTime::ToTimeString(now);
 	std::string time_span = dios::util::CTime::ToTimeSpanString(1000);
 	std::string next_date_time = dios::util::CTime::ToDateTimeString(next);
-	dios_uint64 next2 = dios::util::CTime::ToTime(next_date_time);
+	ds_uint64 next2 = dios::util::CTime::ToTime(next_date_time);
 
 	EXPECT_STREQ("2015-07-01 20:32:22", now_date_time.c_str());
 	EXPECT_STREQ("2015-07-01", now_date.c_str());
@@ -194,6 +194,6 @@ int main(int argc, char **argv)
 
 	printf("Running main() from gtest_main.cc\n");
 	testing::InitGoogleTest(&argc, argv);
-	dios_int32 rlt = RUN_ALL_TESTS();
+	ds_int32 rlt = RUN_ALL_TESTS();
 	return rlt;
 }

@@ -16,7 +16,7 @@ echo #####提示：构建结束#####
 
 echo #####提示：开始编译#####
 rem BuildConsole.exe %project%.sln /prj=ALL_BUILD  /Cfg="Debug|WIN32,Release|WIN32" 
-call build.bat
+rem call build.bat
 if %errorlevel% neq 0 goto :cmEnd
 echo #####提示：编译结束#####
 

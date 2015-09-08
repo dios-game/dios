@@ -13,6 +13,7 @@
 #include <stdexcept>
 #include <cctype>
 #include <cstring>
+#include <sstream>
 
 NS_DS_BEGIN
 NS_UTIL_BEGIN
@@ -21,6 +22,15 @@ namespace detail
 {
 	const char* strue = "true";
 	const char* sfalse = "false";
+
+	template <typename T>
+	std::string to_string(T value)
+	{
+		std::ostringstream os;
+		os << value;
+		return os.str();
+	}
+
 	template <typename To, typename From>
 	struct Converter
 	{
@@ -42,14 +52,14 @@ namespace detail
 			return std::atol(from);
 		}
 	};
-	template <typename From>
-	struct Converter<long long, From>
-	{
-		static long long convert(const From& from)
-		{
-			return std::atoll(from);
-		}
-	};
+// 	template <typename From>
+// 	struct Converter<long long, From>
+// 	{
+// 		static long long convert(const From& from)
+// 		{
+// 			return std::atoll(from);
+// 		}
+// 	};
 	template <typename From>
 	struct Converter<double, From>
 	{
@@ -184,7 +194,7 @@ namespace detail
 	{
 		static std::string convert(const From& from)
 		{
-			return std::to_string(from);
+			return to_string(from);
 		}
 	};
 }

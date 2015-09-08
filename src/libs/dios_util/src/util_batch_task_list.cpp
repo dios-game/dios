@@ -16,7 +16,7 @@ CBatchTaskList::~CBatchTaskList( void )
 
 }
 
-ds_boolean CBatchTaskList::PushTask(std::function<void(CBatchTaskList::Ptr&)> task_function)
+ds_boolean CBatchTaskList::PushTask(std::function<void(CBatchTaskList::Ptr)> task_function)
 {
 	if(is_doing_) {
 		DS_ASSERT(false, "");

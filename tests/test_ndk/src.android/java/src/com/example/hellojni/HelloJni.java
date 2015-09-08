@@ -62,6 +62,6 @@ public class HelloJni extends Activity
      */
     static {
         // System.loadLibrary("gnustl_shared");
-        System.loadLibrary("tu_android_ndk");
+        System.loadLibrary("test_ndk");
     }
 }
