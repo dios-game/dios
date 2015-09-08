@@ -1,7 +1,7 @@
 #ifndef @PROJECT_NAME_UPPER@_LIB_H
 #define @PROJECT_NAME_UPPER@_LIB_H
 
-#include "dxm/platform.h"
+#include "dios/platform.h"
 
 #ifdef @PROJECT_NAME_UPPER@_AS_DLL
 	#if  defined ( @PROJECT_NAME_UPPER@_EXPORT )

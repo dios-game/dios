@@ -1,7 +1,7 @@
 #ifndef LIB_LIB_H
 #define LIB_LIB_H
 
-#include "dxm/platform.h"
+#include "dios/platform.h"
 
 #ifdef LIB_AS_DLL
 	#if  defined ( LIB_EXPORT )
