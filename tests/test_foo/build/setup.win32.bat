@@ -5,31 +5,23 @@ set ocd=%cd%
 cd /d %~dp0
 cd ..
 
-echo ##### 提示：读取配置文件 #####
-if exist ..\config.bat call ..\config.bat
-if exist ..\..\config.bat call ..\..\config.bat
-if exist ..\..\..\config.bat call ..\..\..\config.bat
-if exist ..\..\..\..\config.bat call ..\..\..\..\config.bat
-if exist ..\..\..\..\..\config.bat call ..\..\..\..\..\config.bat
-if exist ..\..\..\..\..\..\config.bat call ..\..\..\..\..\..\config.bat
-if exist ..\..\..\..\..\..\..\config.bat call ..\..\..\..\..\..\..\config.bat
-
 setlocal enabledelayedexpansion
 call :GET_PATH_NAME %cd%
 set project=%PATH_NAME%
 
-if not exist  proj.win64 md proj.win64
-cd proj.win64
+if not exist  proj.win32 md proj.win32
+cd proj.win32
 
 echo #####提示：开始构建#####
-cmake -G %DXM_GENERATOR_X64% -DDXM_CMAKE_PLATFORM=WIN64 ..
+cmake -DDXM_CMAKE_PLATFORM=WIN32 ..
 if %errorlevel% neq 0 goto :cmEnd
-cmake -G %DXM_GENERATOR_X64% -DDXM_CMAKE_PLATFORM=WIN64 ..
+cmake -DDXM_CMAKE_PLATFORM=WIN32 ..
 if %errorlevel% neq 0 goto :cmEnd
 echo #####提示：构建结束#####
 
 echo #####提示：开始编译#####
-BuildConsole.exe %project%.sln /prj=ALL_BUILD /Silent  /Cfg="Debug|x64,Release|x64" 
+rem BuildConsole.exe %project%.sln /prj=ALL_BUILD /Silent /OpenMonitor /Cfg="Debug|WIN32,Release|WIN32" 
+BuildConsole.exe %project%.sln /prj=ALL_BUILD /Silent  /Cfg="Debug|WIN32,Release|WIN32" 
 if %errorlevel% neq 0 goto :cmEnd
 echo #####提示：编译结束#####
 
