@@ -1,33 +1,15 @@
 #! /bin/bash
 
-# -- 用户手动配置
+# -------------------------------
+# -- DIOS 变量
+# -------------------------------
+export DIOS_PROJECT_PATH=$(cd $(dirname $BASH_SOURCE); pwd)
+export DIOS_PATH=${DIOS_PROJECT_PATH}/dios
+export DIOS_COCOS_PATH=${DIOS_PROJECT_PATH}/src/oslibs/cocos/cocos-src
 
 # -------------------------------
-# -- IOS
+# -- DIOS 变量
 # -------------------------------
-
-# -------------------------------
-# -- Tools
-# -------------------------------
-
-# -- 系统自动配置
-
-# -------------------------------
-# -- IOS
-# -------------------------------
-
-# -------------------------------
-# -- DIOS
-# -------------------------------
-DIOS_FRAMEWORK=$(pwd)/$(dirname $0)
-DIOS_TOOLS=${DIOS_FRAMEWORK}/dios/tools
-DIOS_INSTALL=${DIOS_FRAMEWORK}/dependencies
-DIOS_CMAKE=${DIOS_FRAMEWORK}/dios/cmake
-
-# -- 导出所有变量到临时文件
-echo $DIOS_FRAMEWORK >var_dios_framework.txt
-echo $DIOS_TOOLS >var_dios_tools.txt
-echo $DIOS_INSTALL >var_DIOS_INSTALL.txt
-echo $DIOS_CMAKE >var_dios_cmake.txt
-
-chmod 777 ${DIOS_INSTALL}/inc
+export DIOS_INSTALL=${DIOS_PROJECT_PATH}/install
+export DIOS_TOOLS=${DIOS_PATH}/build/tools/ios
+export DIOS_CMAKE=${DIOS_PATH}/build/cmake
