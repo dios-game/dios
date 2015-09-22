@@ -11,8 +11,8 @@ macro(_dios_builder_module_use_precompiled)
 
 	if(DIOS_CMAKE_PLATFORM_WIN32 OR DIOS_CMAKE_PLATFORM_WIN64)
 		_dios_builder_module_use_precompiled_win(${DIOS_MODULE_${DIOS_BUILDER_MODULE}_DIRECTORY}/src/precompiled.h ${DIOS_MODULE_${DIOS_BUILDER_MODULE}_DIRECTORY}/src/precompiled.cpp)
-	elseif(DIOS_CMAKE_PLATFORM_IOS)
-		_dios_builder_module_use_precompiled_win_ios(${DIOS_MODULE_${DIOS_BUILDER_MODULE}_DIRECTORY}/src.ios/cpp/Prefix.pch)
+	elseif(DIOS_CMAKE_PLATFORM_IOS OR DIOS_CMAKE_PLATFORM_MAC)
+		_dios_builder_module_use_precompiled_mac_ios(${DIOS_MODULE_${DIOS_BUILDER_MODULE}_DIRECTORY}/src.ios/cpp/Prefix.pch)
 	endif()
 endmacro()
 # 
@@ -30,14 +30,10 @@ endmacro()
 # 
 # 
 # 
-macro(_dios_builder_module_use_precompiled_win_ios PCH_FILE)
-	if(DIOS_CMAKE_PLATFORM_IOS)                   
-        set_target_properties(
-            ${CURRENT_MODULE} 
-            PROPERTIES
-            XCODE_ATTRIBUTE_GCC_PREFIX_HEADER ${PCH_FILE}
-            XCODE_ATTRIBUTE_GCC_PRECOMPILE_PREFIX_HEADER "YES")
-	else()
-		MESSAGE(FATAL_ERROR "only DIOS_CMAKE_PLATFORM_IOS can run 'dios_builder_module_use_precompiled_win_ios'")
-    endif()
+macro(_dios_builder_module_use_precompiled_mac_ios PCH_FILE)                  
+    set_target_properties(
+        ${CURRENT_MODULE} 
+        PROPERTIES
+        XCODE_ATTRIBUTE_GCC_PREFIX_HEADER ${PCH_FILE}
+        XCODE_ATTRIBUTE_GCC_PRECOMPILE_PREFIX_HEADER "YES")
 endmacro()

@@ -14,6 +14,7 @@
 #     - DIOS_CMAKE_PLATFORM_UNIX
 #     - DIOS_CMAKE_PLATFORM_ANDROID
 #     - DIOS_CMAKE_PLATFORM_IOS    
+#     - DIOS_CMAKE_PLATFORM_MAC
 
 MACRO(_dios_environment_init)
 	_dios_environment_init_cmake()
@@ -46,6 +47,8 @@ MACRO(_dios_environment_init_platform)
 			set(DIOS_CMAKE_PLATFORM_UNIX true)
 		elseif(${DIOS_CMAKE_PLATFORM} STREQUAL IOS)
 			set(DIOS_CMAKE_PLATFORM_IOS true)
+		elseif(${DIOS_CMAKE_PLATFORM} STREQUAL MAC)
+			set(DIOS_CMAKE_PLATFORM_MAC true)
 		elseif(${DIOS_CMAKE_PLATFORM} STREQUAL ANDROID)
 			set(DIOS_CMAKE_PLATFORM_ANDROID true)	
 			if(NOT CMAKE_GENERATOR)
@@ -150,8 +153,16 @@ MACRO(_dios_environment_init_compiler)
 			MESSAGE(FATAL_ERROR "DIOS_CMAKE_PLATFORM_IOS need APPLE platform!")
 		endif()
 		SET(DIOS_CMAKE_COMPILER "ios")
-	
-		include(dios_cmake_ios)
+		SET(CMAKE_OSX_SYSROOT "iphoneos")
+		
+		# 创建bin目录结构
+		dios_file_mkdir(${DIOS_CMAKE_INSTALL_DIRECTORY}/bin/${DIOS_CMAKE_COMPILER}/debug)
+		dios_file_mkdir(${DIOS_CMAKE_INSTALL_DIRECTORY}/bin/${DIOS_CMAKE_COMPILER}/release)
+	elseif(DIOS_CMAKE_PLATFORM_MAC)
+		if(NOT APPLE)
+			MESSAGE(FATAL_ERROR "DIOS_CMAKE_PLATFORM_MAC need APPLE platform!")
+		endif()
+		SET(DIOS_CMAKE_COMPILER "mac")
 		
 		# 创建bin目录结构
 		dios_file_mkdir(${DIOS_CMAKE_INSTALL_DIRECTORY}/bin/${DIOS_CMAKE_COMPILER}/debug)
