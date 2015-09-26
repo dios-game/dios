@@ -9,8 +9,10 @@
 #include "dios_util/util_crypto.h"
 #include "dios_util/util_time.h"
 #include "dios_util/util_timer.h"
+#include "dios_util/util_batch_task_list.h"
 
 #include "pthread.h"
+#include <thread>
 
 TEST(UtilTest, BitArrayTest)
 {
@@ -161,7 +163,7 @@ TEST_F(CryptoTest, DecryptXOR){
 	EXPECT_STREQ("123456", dios::util::CCrypto::DecryptXOR("KZRZRR", "zhangdong").c_str()); 
 }
 
-TEST(TimeTest, TimeTest1){
+TEST(UtilTest, TimeTest1){
 
 	ds_uint64 now = 1435753942;
 	ds_uint64 next = now + 1000;
@@ -173,11 +175,39 @@ TEST(TimeTest, TimeTest1){
 	std::string next_date_time = dios::util::CTime::ToDateTimeString(next);
 	ds_uint64 next2 = dios::util::CTime::ToTime(next_date_time);
 
+	ds_uint64 now_1 = dios::util::CTime::NowTime();
+
 	EXPECT_STREQ("2015-07-01 20:32:22", now_date_time.c_str());
 	EXPECT_STREQ("2015-07-01", now_date.c_str());
 	EXPECT_STREQ("20:32:22", now_time.c_str());
 	EXPECT_STREQ("00:16:40", time_span.c_str());
 	EXPECT_EQ(next, next2);
+}
+
+TEST(UtilTest, BatchTaskListTest){
+
+	dios::util::CBatchTaskList::Ptr batch_task_list(new dios::util::CBatchTaskList);
+	for (int i = 0; i < 100; ++i){ 
+		batch_task_list->PushTask([](dios::util::CBatchTaskList::Ptr list){
+			list->AddUncompletedTaskRef();
+			std::thread thread = std::thread([=](){
+				list->ReleaseUncompletedTaskRef();
+				// printf(">>>>>>>>>>>batch_task_list %d/%d\n", list->GetUncompletedTask(), list->GetTotalTask());
+			});	
+			thread.detach();
+		});
+	}
+
+	batch_task_list->DoAllTask([batch_task_list](){
+		// auto id = std::this_thread::get_id();
+		// printf(">>>>>>>>>>>batch_task_list %d/%d\n", batch_task_list->GetUncompletedTask(), batch_task_list->GetTotalTask());
+	});
+
+	while (batch_task_list->GetUncompletedTask() != 0){
+		DS_SLEEP(100);
+	}
+
+	EXPECT_EQ(batch_task_list->GetUncompletedTask(), 0);
 }
 
 void* thread_proc( void* param ){
@@ -195,5 +225,6 @@ int main(int argc, char **argv)
 	printf("Running main() from gtest_main.cc\n");
 	testing::InitGoogleTest(&argc, argv);
 	ds_int32 rlt = RUN_ALL_TESTS();
+	system("pause");
 	return rlt;
 }

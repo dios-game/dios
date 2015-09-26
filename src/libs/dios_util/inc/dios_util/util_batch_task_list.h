@@ -14,7 +14,7 @@ NS_UTIL_BEGIN
 /*
  *	批任务列表;
  */
-class DS_UTIL_DECL CBatchTaskList : std::enable_shared_from_this<CBatchTaskList>
+class DS_UTIL_DECL CBatchTaskList : public std::enable_shared_from_this<CBatchTaskList>
 {
 public:
 	typedef std::shared_ptr<CBatchTaskList>	Ptr;
@@ -41,7 +41,7 @@ private:
 	std::function<void()> complete_callback_; 
 
 	ds_int32 task_uncompleted_count_;
-	std::mutex task_uncompleted_count_mutex_;
+	std::recursive_mutex task_uncompleted_count_mutex_;
 
 	ds_int32 task_total_;
 
