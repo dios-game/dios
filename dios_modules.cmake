@@ -17,10 +17,37 @@ dios_register_regist_module(dios_util ${CMAKE_CURRENT_LIST_DIR}/src/libs/dios_ut
 dios_register_regist_module(dios_com ${CMAKE_CURRENT_LIST_DIR}/src/libs/dios_com)
 
 # 第三方;
+dios_register_regist_module(boost ${CMAKE_CURRENT_LIST_DIR}/src/oslibs/boost 
+	boost_atomic
+	boost_chrono
+	boost_thread 
+	boost_system 
+	boost_signals 
+	boost_date_time 
+	boost_only_header 
+	boost_filesystem 
+	boost_iostreams 
+	boost_program_options
+	boost_regex
+	boost_serialization
+	boost_python
+	boost_wave
+	)
+	
 dios_register_regist_module(lua ${CMAKE_CURRENT_LIST_DIR}/src/oslibs/lua)
 dios_register_regist_module(tolua ${CMAKE_CURRENT_LIST_DIR}/src/oslibs/tolua)
 dios_register_regist_module(gtest ${CMAKE_CURRENT_LIST_DIR}/src/oslibs/gtest)
+dios_register_regist_module(protobuf ${CMAKE_CURRENT_LIST_DIR}/src/oslibs/protobuf)
+dios_register_regist_module(lua ${CMAKE_CURRENT_LIST_DIR}/src/oslibs/lua)
+dios_register_regist_module(tolua ${CMAKE_CURRENT_LIST_DIR}/src/oslibs/tolua)
+dios_register_regist_module(log4cplus ${CMAKE_CURRENT_LIST_DIR}/src/oslibs/log4cplus)
+dios_register_regist_module(libmysql ${CMAKE_CURRENT_LIST_DIR}/src/oslibs/libmysql)
 dios_register_regist_module(libevent ${CMAKE_CURRENT_LIST_DIR}/src/oslibs/libevent)
+dios_register_regist_module(google_breakpad ${CMAKE_CURRENT_LIST_DIR}/src/oslibs/google_breakpad)
+dios_register_regist_module(libcurl ${CMAKE_CURRENT_LIST_DIR}/src/oslibs/libcurl)
+dios_register_regist_module(freetype2 ${CMAKE_CURRENT_LIST_DIR}/src/oslibs/freetype2)
+dios_register_regist_module(zlib ${CMAKE_CURRENT_LIST_DIR}/src/oslibs/zlib)
+dios_register_regist_module(pbc ${CMAKE_CURRENT_LIST_DIR}/src/oslibs/pbc)
 
 # 第三方预编译;
 dios_register_regist_module(platform ${CMAKE_CURRENT_LIST_DIR}/src/prebuilt/platform pthread dl socket xml2 z inet vld)

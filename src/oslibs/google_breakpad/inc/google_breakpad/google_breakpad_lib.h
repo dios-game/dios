@@ -1,0 +1,16 @@
+#ifndef GOOGLE_BREAKPAD_LIB_H
+#define GOOGLE_BREAKPAD_LIB_H
+
+#include "dios/platform.h"
+
+#ifdef GOOGLE_BREAKPAD_AS_DLL
+	#if  defined ( GOOGLE_BREAKPAD_EXPORT )
+	#define GOOGLE_BREAKPAD_DECL DS_DLL_EXPORT
+	#else
+	#define GOOGLE_BREAKPAD_DECL DS_DLL_IMPORT
+	#endif // GOOGLE_BREAKPAD_EXPORT
+#else
+	#define GOOGLE_BREAKPAD_DECL
+#endif
+
+#endif // GOOGLE_BREAKPAD_LIB_H
