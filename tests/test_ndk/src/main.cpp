@@ -79,15 +79,15 @@ void TestLibEvent(){
 	server->Shutdown();
 	net_service->Shutdown();
 }
+
+extern int TestMysql();
 #else
 
-void TestHttp(){
+void TestHttp(){   }
 
-}
+void TestLibEvent(){  }
 
-void TestLibEvent(){
-
-}
+int TestMysql() {}
 #endif
 
 //static
@@ -127,4 +127,6 @@ int main(int argc, char **argv)
 	printf("%s hello world %d\n", NowString().c_str());
 
 	TestHttp();
+
+	TestMysql();
 }
