@@ -32,6 +32,8 @@ pause
 exit
 
 :cmDone
+cmake -P dios_cmake_compile_succeeded.cmake
+cmake -P dios_cmake_install_succeeded.cmake
 cd /d %ocd%
 
 @echo on

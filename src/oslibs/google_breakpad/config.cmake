@@ -1,6 +1,5 @@
 
-
-set(DIOS_CONFIG_TEMPLATE lib)
+SET(DIOS_CONFIG_TEMPLATE prebuit)
 SET(DIOS_CONFIG_MODULE google_breakpad) 
 
 
@@ -18,7 +17,7 @@ MACRO(dios_config_module_init MODULE)
 	
 
 	# 模块类型变量; app(APPLICATION); lib(STATIC, SHARED);
-	SET(DIOS_MODULE_${MODULE}_TYPE SHARED) # default  pc mac
+	SET(DIOS_MODULE_${MODULE}_TYPE PREBUILT) # default  pc mac
 	SET(DIOS_MODULE_${MODULE}_ANDROID_TYPE STATIC)
 	SET(DIOS_MODULE_${MODULE}_IOS_TYPE STATIC) # can only build static library on ios
 
@@ -33,7 +32,7 @@ MACRO(dios_config_module_init MODULE)
 
 	# 是否使用预编译头
 	SET(DIOS_MODULE_${MODULE}_PRECOMPILED true)
-	SET(DIOS_MODULE_${MODULE}_PREBUILT false)
+	SET(DIOS_MODULE_${MODULE}_PREBUILT true)
 
 	# 
 	# 2. 计算md5;
@@ -41,7 +40,7 @@ MACRO(dios_config_module_init MODULE)
 	# 	额外计算默认目录的md5，其中包括src,inc,proto,src.android/cpp,src.ios/cpp,src.win/cpp，src.unix/cpp
 	# dios_module_add_directory_md5(${MODULE} patch)
 	# 	额外计算工程当前某目录下的MD5为模块MD5
-	dios_module_add_default_md5(${MODULE})
+	dios_module_add_directory_md5(${MODULE} prebuilt/inc)
 
 	#
 	# 3. 导入模块;
@@ -52,10 +51,28 @@ MACRO(dios_config_module_init MODULE)
 	# dios_module_link_library(${MODULE} libfoo false)
 	# dios_module_link_library(${MODULE} dios_util false)
 	# dios_module_link_library(${MODULE} dios_com false)
+	# dios_module_link_library(${MODULE} boost_atomic false)
+	# dios_module_link_library(${MODULE} boost_chrono false)
+	# dios_module_link_library(${MODULE} boost_thread false)
+	# dios_module_link_library(${MODULE} boost_system false)
+	# dios_module_link_library(${MODULE} boost_date_time false)
+	# dios_module_link_library(${MODULE} boost_filesystem false)
+	# dios_module_link_library(${MODULE} boost_iostreams false)
+	# dios_module_link_library(${MODULE} boost_program_options false)
 	# dios_module_link_library(${MODULE} lua false)
 	# dios_module_link_library(${MODULE} tolua false)
 	# dios_module_link_library(${MODULE} gtest false)
+	# dios_module_link_library(${MODULE} protobuf false)
+	# dios_module_link_library(${MODULE} lua false)
+	# dios_module_link_library(${MODULE} tolua false)
+	# dios_module_link_library(${MODULE} log4cplus false)
+	# dios_module_link_library(${MODULE} libmysql false)
 	# dios_module_link_library(${MODULE} libevent false)
+	# dios_module_link_library(${MODULE} google_breakpad false)
+	# dios_module_link_library(${MODULE} libcurl false)
+	# dios_module_link_library(${MODULE} freetype2 false)
+	# dios_module_link_library(${MODULE} zlib false)
+	# dios_module_link_library(${MODULE} pbc false)
 	# dios_module_link_library(${MODULE} pthread false)
 	# dios_module_link_library(${MODULE} dl false)
 	# dios_module_link_library(${MODULE} socket false)
@@ -73,14 +90,50 @@ ENDMACRO()
 # 
 MACRO(dios_config_find_module MODULE)
 
-	# 
 	#  dios_find_module(<module>
 	#    [PACKAGE <package>]
 	#    [COMPONENTS <component...>]
 	#    [HEADERS <path>])
-	# 
 
-	dios_find_module(${MODULE})
+	SET(LIBRARY_LIST ${ARGN})
+	FOREACH(TEMP_LIBRARY_NAME ${LIBRARY_LIST})
+		IF(${TEMP_LIBRARY_NAME} STREQUAL pthread)
+			IF(WIN32)
+				dios_find_module(${MODULE} COMPONENTS pthreadVC2 HEADERS pthread/pthread.h)
+			ELSEIF(UNIX)
+				dios_find_add_libraries(${MODULE} pthread)
+			ENDIF()
+
+		ELSEIF(${TEMP_LIBRARY_NAME} STREQUAL vld)
+			IF(DIOS_TARGET_WIN32 OR DIOS_TARGET_WIN64)
+				dios_find_module(${MODULE} HEADERS vld/vld.h)
+				dios_find_add_definitions(${MODULE} -DUSE_VLD )		
+			ENDIF()
+		ELSEIF(${TEMP_LIBRARY_NAME} STREQUAL dl)
+			IF(UNIX)
+				dios_find_add_libraries(${MODULE} dl)
+			ENDIF()
+		ELSEIF(${TEMP_LIBRARY_NAME} STREQUAL socket)
+			IF(WIN32)
+				dios_find_add_libraries(${MODULE} ws2_32 wsock32)
+			ENDIF()
+		ELSEIF(${TEMP_LIBRARY_NAME} STREQUAL xml2)
+			IF(UNIX)
+				dios_find_add_includes(${MODULE}/usr/include/libxml2)
+				dios_find_add_libraries(${MODULE} xml2)
+			ENDIF()
+		ELSEIF(${TEMP_LIBRARY_NAME} STREQUAL z)
+			IF(UNIX)
+				dios_find_add_libraries(${MODULE} z)
+			ENDIF()
+		ELSEIF(${TEMP_LIBRARY_NAME} STREQUAL inet)
+			IF(WIN32)
+				dios_find_add_libraries(${MODULE} wininet)
+			ENDIF()
+		ELSE()
+			MESSAGE(FATAL "Load ${TEMP_LIBRARY_NAME} is not match pthread dl socket!")
+		ENDIF()
+	ENDFOREACH()
 
 ENDMACRO()
 
