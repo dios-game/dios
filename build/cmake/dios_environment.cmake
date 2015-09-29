@@ -66,6 +66,11 @@ ENDMACRO()
 # 
 MACRO(_dios_environment_init_compiler)
 	
+	if(DIOS_CMAKE_PLATFORM_ANDROID_MK)
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+		SET(DIOS_CMAKE_COMPILER "android")
+	endif()
+
 	if(NOT CMAKE_GENERATOR)
 		MESSAGE(STATUS "this is not CMakelist.txt (CMAKE_GENERATOR is null)!")
 		return()

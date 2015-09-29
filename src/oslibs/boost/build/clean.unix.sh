@@ -1,9 +1,14 @@
 #! /bin/bash
 
+
+#! /bin/bash
+
 cd $(dirname "$0")
 cd ..
 
-rm -rf proj.unix;
+rm -rf boost_1_48_0;
+
+
 
 
 

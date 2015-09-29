@@ -21,19 +21,12 @@ dios_register_regist_module(boost ${CMAKE_CURRENT_LIST_DIR}/src/oslibs/boost
 	boost_atomic
 	boost_chrono
 	boost_thread 
-	boost_system 
-	boost_signals 
+	boost_system  
 	boost_date_time 
-	boost_only_header 
 	boost_filesystem 
 	boost_iostreams 
 	boost_program_options
-	boost_regex
-	boost_serialization
-	boost_python
-	boost_wave
 	)
-	
 dios_register_regist_module(lua ${CMAKE_CURRENT_LIST_DIR}/src/oslibs/lua)
 dios_register_regist_module(tolua ${CMAKE_CURRENT_LIST_DIR}/src/oslibs/tolua)
 dios_register_regist_module(gtest ${CMAKE_CURRENT_LIST_DIR}/src/oslibs/gtest)

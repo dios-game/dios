@@ -15,7 +15,7 @@ echo ##### 提示：编译SO #####
 set NDK_PROJECT_PATH=%cd%
 set NDK_PROJECT_PATH=%NDK_PROJECT_PATH:\=/%
 call %ANDROID_NDK_HOME%\ndk-build.cmd -j4
-if ERRORLEVEL 1 goto END
+if ERRORLEVEL 1 goto cmEnd
 
 echo #### 提示：设置环境目录 #####
 set CHANNEL_NAME=
@@ -26,7 +26,7 @@ mkdir %~dp0\..\src.android\java\libs\
 	xcopy /e /h /r /k /y %~dp0\libs\* %~dp0\..\src.android\java\libs\
 )
 
-goto END
+goto cmDone
 
 echo ##### 以下内容暂时注释 #####
 echo ##### 工程打包 #####
@@ -44,12 +44,20 @@ for /f %%d in ('dir /s /b libs') do (
 )
 )
 
-:END
-cd %ocd%
-goto :eof
+goto cmDone
+
+:cmEnd
+echo build failed
+pause
+exit
+
+goto cmDone
 
 :GET_CHANNEL_NAME
 set CHANNEL_NAME=%~n1
+
+:cmDone
+cd /d %ocd%
 
 
 

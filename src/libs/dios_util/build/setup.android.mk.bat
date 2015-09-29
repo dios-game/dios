@@ -2,8 +2,7 @@ REM ×¢ÊÍ
 @echo off
 
 set ocd=%cd%
-cd /d %~dp0
-cd ..
+cd /d %~dp0\..
 
 if not exist proj.android md proj.android
 cd proj.android
@@ -32,6 +31,8 @@ pause
 exit
 
 :cmDone
+cmake -P dios_cmake_compile_succeeded.cmake
+cmake -P dios_cmake_install_succeeded.cmake
 cd /d %ocd%
 
 @echo on

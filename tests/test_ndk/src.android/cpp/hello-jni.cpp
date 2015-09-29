@@ -19,11 +19,13 @@
 #include <string>
 #include <map>
 #include "dios_util/util_crypto.h"
+#include "boost/lexical_cast.hpp"
 
 #define XE_DOT ,
 #define XE_DEFINE_VAR(type, var) type var;
 
 
+extern std::string NowString();
 extern "C" {
 /* This is a trivial JNI example where we use a native method
  * to return a new VM String. See the corresponding Java source
@@ -74,7 +76,8 @@ Java_com_example_hellojni_HelloJni_stringFromJNI( JNIEnv* env,
     // return (*env)->NewStringUTF(env, "Hello from JNI !  Compiled with ABI " ABI ".");
     // return env->NewStringUTF(md5.c_str());
     // return env->NewStringUTF("Hello from JNI !  Compiled with ABI " ABI ".");
-    return env->NewStringUTF(map_md5[0].c_str());
+    // return env->NewStringUTF(map_md5[0].c_str());
+	return env->NewStringUTF(NowString().c_str());
 }
 
 }
