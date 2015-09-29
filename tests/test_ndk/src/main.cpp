@@ -11,6 +11,24 @@
 
 #include "crash_handler/crash_handler.h"
 
+
+#if DS_TARGET_PLATFORM==DS_PLATFORM_WIN32
+
+#include "http.h"
+void TestHttp(){
+
+	CHttpServiceImpl http;
+	std::string result;
+	http.GetUrlData("http://www.baidu.com", result);
+	printf("baidu %s\n", result.c_str());
+}
+#else
+
+void TestHttp(){
+
+}
+#endif
+
 //static
 std::string NowString()
 {
@@ -30,7 +48,7 @@ std::string NowString()
 	return str;
 }
 
-#define XE_DOT ,
+#define DS_DOT ,
 int main(int argc, char **argv)
 {
 	std::string dump_folder = "dump";
@@ -39,14 +57,13 @@ int main(int argc, char **argv)
 
 	CMyCrash::Install(dump_folder.c_str());
 
-	std::map<int XE_DOT int> map_test;
+	std::map<int DS_DOT int> map_test;
 	map_test[1] = 10;
 	printf("hello world %d\n", map_test[1]);
 
-	int i = 0;
-	int x = 100 / i;
-
 	boost::thread thread([](){ printf("%s hello thread\n", NowString().c_str()); });
 	thread.join();
-	printf("%s hello world %d\n", NowString().c_str(), x);
+	printf("%s hello world %d\n", NowString().c_str());
+
+	TestHttp();
 }
