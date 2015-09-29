@@ -3,7 +3,7 @@
 set ocd=%cd%
 cd /d %~dp0
 
-echo ##### ìáê?￡o?áè????????t #####
+echo ##### 提示：读取配置文件 #####
 if exist ..\config.bat call ..\config.bat
 if exist ..\..\config.bat call ..\..\config.bat
 if exist ..\..\..\config.bat call ..\..\..\config.bat
@@ -12,7 +12,7 @@ if exist ..\..\..\..\..\config.bat call ..\..\..\..\..\config.bat
 if exist ..\..\..\..\..\..\config.bat call ..\..\..\..\..\..\config.bat
 if exist ..\..\..\..\..\..\..\config.bat call ..\..\..\..\..\..\..\config.bat
 
-echo ##### ìáê?￡o±?á????? #####
+echo ##### 提示：变量配置 #####
 set LIBCURL_VERSION_NAME=curl-7.33.0
 SET DIOS_PREBUILT=%cd%\prebuilt
 SET DIOS_PLATFORM=win_x86
@@ -22,9 +22,9 @@ set LIBRARY_DIRECTORY_DEBUG=%DIOS_PREBUILT%\lib\%DIOS_PLATFORM%\debug
 set LIBRARY_DIRECTORY_RELEASE=%DIOS_PREBUILT%\lib\%DIOS_PLATFORM%\release
 set INCLUDE_DIRECTORY=%DIOS_PREBUILT%\inc\libcurl
 
-echo ##### ìáê?￡o?a?1 %LIBCURL_VERSION_NAME% #####
+echo ##### 提示：解压 %LIBCURL_VERSION_NAME% #####
 if not exist %LIBCURL_VERSION_NAME% (
-	rem ?a?12ù×÷
+	rem 解压操作
 	%DIOS_TOOLS%\7za.exe x -y %LIBCURL_VERSION_NAME%.tar.bz2
 	%DIOS_TOOLS%\7za.exe x -y %LIBCURL_VERSION_NAME%.tar
 	del %LIBCURL_VERSION_NAME%.tar /Q
@@ -38,22 +38,22 @@ mkdir %LIBRARY_DIRECTORY_DEBUG%
 mkdir %LIBRARY_DIRECTORY_RELEASE%
 mkdir %INCLUDE_DIRECTORY%
 
-echo ##### ìáê?￡oVC?·?3 #####
+echo ##### 提示：VC环境 #####
 mkdir vc
 cd vc
 cmake ..
 
-echo ##### ìáê?￡o±àò? #####
+echo ##### 提示：编译 #####
 BuildConsole.exe CURL.sln /prj=libcurl /Silent /Cfg="Debug|WIN32,Release|WIN32" 
 
-echo ##### ìáê?￡o??±′ #####
+echo ##### 提示：拷贝 #####
 copy /y ..\include\curl\*.h %INCLUDE_DIRECTORY%
 copy /y lib\Debug\*.dll %BIN_DIRECTORY_DEBUG%
 copy /y lib\Release\*.dll %BIN_DIRECTORY_RELEASE%
 copy /Y lib\Debug\*.lib "%LIBRARY_DIRECTORY_DEBUG%"
 copy /Y lib\Release\*.lib "%LIBRARY_DIRECTORY_RELEASE%"
 
-rem ### cmake ?à1?
+rem ### cmake 相关
 cd /d %~dp0
 setlocal enabledelayedexpansion
 call :GET_PATH_NAME %cd%
@@ -62,27 +62,27 @@ set project=%PATH_NAME%
 if not exist  proj.win32 md proj.win32
 cd proj.win32
 
-echo #####ìáê?￡o?aê?11?¨#####
+echo #####提示：开始构建#####
 cmake -DDIOS_CMAKE_PLATFORM=WIN32 ..
 echo %errorlevel%
 if %errorlevel% neq 0 goto :cmEnd
 cmake -DDIOS_CMAKE_PLATFORM=WIN32 ..
 echo %errorlevel%
 if %errorlevel% neq 0 goto :cmEnd
-echo #####ìáê?￡o11?¨?áê?#####
+echo #####提示：构建结束#####
 
-echo #####ìáê?￡o?aê?±àò?#####
+echo #####提示：开始编译#####
 rem BuildConsole.exe %project%.sln /prj=ALL_BUILD /Silent /OpenMonitor /Cfg="Debug|WIN32,Release|WIN32" 
 rem BuildConsole.exe %project%.sln /prj=ALL_BUILD /Silent  /Cfg="Debug|WIN32,Release|WIN32" 
 rem if %errorlevel% neq 0 goto :cmEnd
-echo #####ìáê?￡o±àò??áê?#####
+echo #####提示：编译结束#####
 
-echo #####ìáê?￡o?aê?°2×°#####
+echo #####提示：开始安装#####
 cmake -DBUILD_TYPE="Debug" -P cmake_install.cmake
 if %errorlevel% neq 0 goto :cmEnd
 cmake -DBUILD_TYPE="Release" -P cmake_install.cmake
 if %errorlevel% neq 0 goto :cmEnd
-echo #####ìáê?￡o°2×°?áê?#####
+echo #####提示：安装结束#####
 
 goto cmDone
 :cmEnd

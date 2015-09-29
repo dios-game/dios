@@ -14,7 +14,9 @@ MACRO(dios_config_template_init TEMPLATE_MODULE_NAME TEMPLATE_MODULE_DIRECTORY)
 	# 2. 创建config.cmake
 	#
 	dios_template_create_config()
-	
+
+	# 3. 创建其他模板文件;
+	# 
 	# configure_file(
 	#		${DIOS_CMAKE_CURRENT_TEMPLATE_DIRECTORY}/inc/lib/lib_lib.h.in
 	#		${TEMPLATE_MODULE_DIRECTORY}/inc/${TEMPLATE_MODULE_NAME}/${TEMPLATE_MODULE_NAME}_lib.h
@@ -22,11 +24,29 @@ MACRO(dios_config_template_init TEMPLATE_MODULE_NAME TEMPLATE_MODULE_DIRECTORY)
 	#		NEWLINE_STYLE UNIX
 	#	)
 
+	file(MAKE_DIRECTORY ${TEMPLATE_MODULE_DIRECTORY}/inc/${TEMPLATE_MODULE_NAME})	
+	configure_file(
+		${DIOS_CMAKE_CURRENT_TEMPLATE_DIRECTORY}/inc/lib/lib_lib.h.in
+		${TEMPLATE_MODULE_DIRECTORY}/inc/${TEMPLATE_MODULE_NAME}/${TEMPLATE_MODULE_NAME}_lib.h
+		@ONLY
+		NEWLINE_STYLE UNIX
+		)
+	configure_file(
+		${DIOS_CMAKE_CURRENT_TEMPLATE_DIRECTORY}/src/lib_lib.cpp.in
+		${TEMPLATE_MODULE_DIRECTORY}/src/${TEMPLATE_MODULE_NAME}_lib.cpp
+		@ONLY
+		NEWLINE_STYLE UNIX
+		)
+
 	#
 	# 4. 移除无用的文件及目录;
 	#
-	# dios_file_rmdir(${TEMPLATE_MODULE_DIRECTORY}/inc/lib)
-	# dios_file_rm(${TEMPLATE_MODULE_DIRECTORY}/src/foo.cpp)
+	# dios_file_rmdir(${TEMPLATE_MODULE_DIRECTORY}/${TEMPLATE_MODULE_NAME}/inc/lib)
+	# dios_file_rm(${TEMPLATE_MODULE_DIRECTORY}/${TEMPLATE_MODULE_NAME}/src/foo.cpp)
+	dios_file_rmdir(${TEMPLATE_MODULE_DIRECTORY}/inc/lib)
+	dios_file_rm(${TEMPLATE_MODULE_DIRECTORY}/src/foo.cpp)
+	dios_file_rm(${TEMPLATE_MODULE_DIRECTORY}/src/lib_lib.cpp)
+	dios_file_rm(${TEMPLATE_MODULE_DIRECTORY}/src/lib_lib.cpp.in)
 ENDMACRO()
  
 # 

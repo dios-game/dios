@@ -1,1 +1,1 @@
- (prebuilt lib; platform: win(default shared), linux/unix(default shared), android(default static))
+ (base lib; platform: win(default shared), linux/unix(default shared), android(default static))

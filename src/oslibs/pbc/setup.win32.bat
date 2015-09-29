@@ -47,3 +47,4 @@ cd /d %ocd%
 goto :eof
 :GET_PATH_NAME
 set PATH_NAME=%~n1
+:eof

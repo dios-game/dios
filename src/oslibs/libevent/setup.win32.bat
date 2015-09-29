@@ -51,10 +51,7 @@ xcopy /y/s include\*.h %DIOS_PREBUILT%\inc\libevent
 xcopy /y/s WIN32-Code\*.h %DIOS_PREBUILT%\inc\libevent
 
 rem ---------------------
-
-
 rem #### cmake Брвы
-
 cd /d %~dp0
 
 setlocal enabledelayedexpansion
