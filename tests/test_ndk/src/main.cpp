@@ -9,6 +9,8 @@
 #include "boost/lexical_cast.hpp"			
 #include "boost/date_time/posix_time/posix_time.hpp"
 
+#include "crash_handler/crash_handler.h"
+
 //static
 std::string NowString()
 {
@@ -31,12 +33,20 @@ std::string NowString()
 #define XE_DOT ,
 int main(int argc, char **argv)
 {
+	std::string dump_folder = "dump";
+	std::string svn_version = "11";
+	dump_folder += svn_version;
+
+	CMyCrash::Install(dump_folder.c_str());
+
 	std::map<int XE_DOT int> map_test;
 	map_test[1] = 10;
 	printf("hello world %d\n", map_test[1]);
 
+	int i = 0;
+	int x = 100 / i;
 
 	boost::thread thread([](){ printf("%s hello thread\n", NowString().c_str()); });
 	thread.join();
-	printf("%s hello world\n", NowString().c_str());
+	printf("%s hello world %d\n", NowString().c_str(), x);
 }

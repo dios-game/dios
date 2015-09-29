@@ -50,6 +50,7 @@ MACRO(dios_config_module_init MODULE)
 	
 	# dios_module_link_library(${MODULE} lib false)
 	# dios_module_link_library(${MODULE} foo false)
+	dios_module_link_library(${MODULE} crash_handler false)
 	dios_module_link_library(${MODULE} boost_atomic false)
 	dios_module_link_library(${MODULE} boost_chrono false)
 	dios_module_link_library(${MODULE} boost_thread false)
