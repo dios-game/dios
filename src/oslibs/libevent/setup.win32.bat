@@ -1,3 +1,4 @@
+REM 注释
 @echo off
 
 set ocd=%cd%
@@ -50,6 +51,10 @@ xcopy /y/s include\*.h %DIOS_PREBUILT%\inc\libevent
 xcopy /y/s WIN32-Code\*.h %DIOS_PREBUILT%\inc\libevent
 
 rem ---------------------
+
+
+rem #### cmake 编译
+
 cd /d %~dp0
 
 setlocal enabledelayedexpansion
@@ -61,17 +66,15 @@ cd proj.win32
 
 echo #####提示：开始构建#####
 cmake -DDIOS_CMAKE_PLATFORM=WIN32 ..
-echo %errorlevel%
 if %errorlevel% neq 0 goto :cmEnd
 cmake -DDIOS_CMAKE_PLATFORM=WIN32 ..
-echo %errorlevel%
 if %errorlevel% neq 0 goto :cmEnd
 echo #####提示：构建结束#####
 
 echo #####提示：开始编译#####
 rem BuildConsole.exe %project%.sln /prj=ALL_BUILD /Silent /OpenMonitor /Cfg="Debug|WIN32,Release|WIN32" 
 rem BuildConsole.exe %project%.sln /prj=ALL_BUILD /Silent  /Cfg="Debug|WIN32,Release|WIN32" 
-rem if %errorlevel% neq 0 goto :cmEnd
+if %errorlevel% neq 0 goto :cmEnd
 echo #####提示：编译结束#####
 
 echo #####提示：开始安装#####
@@ -88,14 +91,13 @@ pause
 exit
 
 :cmDone
-cmake -P DIOS_cmake_compile_succeeded.cmake
-cmake -P DIOS_cmake_install_succeeded.cmake
+cmake -P dios_cmake_compile_succeeded.cmake
+cmake -P dios_cmake_install_succeeded.cmake
 cd /d %ocd%
+
+@echo on
 
 goto :eof
 :GET_PATH_NAME
 set PATH_NAME=%~n1
-
 :eof
-
-@echo on

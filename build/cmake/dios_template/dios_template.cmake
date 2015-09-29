@@ -88,7 +88,7 @@ macro( dios_template_create_config )
 		
 		# crash_handler 特殊处理
 		IF(${MY_LIRARY} STREQUAL "crash_handler")
-			SET(IMPORT_MODULE_TEXT "${IMPORT_MODULE_TEXT}	IF(DIOS_TARGET_WIN32 OR DIOS_TARGET_WIN64)\n")
+			SET(IMPORT_MODULE_TEXT "${IMPORT_MODULE_TEXT}	IF(DIOS_CMAKE_PLATFORM_WIN32 OR DIOS_CMAKE_PLATFORM_WIN64)\n")
 		ENDIF()
 		
 		# 进行开启或者关闭

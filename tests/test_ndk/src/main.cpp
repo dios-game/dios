@@ -15,6 +15,9 @@
 #if DS_TARGET_PLATFORM==DS_PLATFORM_WIN32
 
 #include "http.h"
+#include "net_service.h"	  
+#include "net_service_internal.h"
+
 void TestHttp(){
 
 	CHttpServiceImpl http;
@@ -22,9 +25,67 @@ void TestHttp(){
 	http.GetUrlData("http://www.baidu.com", result);
 	printf("baidu %s\n", result.c_str());
 }
+
+
+class CServerConnectorSink :public IConnectorSink
+{
+public:
+	virtual void OnConnect(const IConnector::Ptr&){ printf("server accepted\n");  }
+	virtual void OnRecv(const IConnector::Ptr& connector, const void* buffer, unsigned int size){
+		printf("server recv\n");
+
+		connector->Send(buffer, size);
+		printf("server send %s\n", buffer);
+	}
+	virtual void OnDisconnect(const IConnector::Ptr&){
+		printf("server lost client \n");
+	}
+
+	virtual IConnectorSink* Clone() { return new CServerConnectorSink; }
+	virtual void Release(){ delete this; }
+};
+
+class CClientConnectorSink :public IConnectorSink
+{
+public:
+	virtual void OnConnect(const IConnector::Ptr&){ printf("client connected\n"); }
+	virtual void OnRecv(const IConnector::Ptr& connector, const void* buffer, unsigned int size){
+		printf("client recv\n");
+
+		connector->Send(buffer, size);
+		printf("client send\n");
+	}
+	virtual void OnDisconnect(const IConnector::Ptr&){
+		printf("client disconnect\n");
+	}
+
+	virtual IConnectorSink* Clone() { return new CClientConnectorSink; }
+	virtual void Release(){ delete this; }
+};
+void TestLibEvent(){
+		
+	CNetService* net_service = new CNetService;
+	net_service->Initialize(1024);
+
+	IServer::Ptr server = net_service->Listen("127.0.0.1", 8090, new CServerConnectorSink);
+	IConnector::Ptr client = net_service->Connect("127.0.0.1", 8090, new CClientConnectorSink);
+	client->Send("hello", 6);
+
+	while (true){
+		DS_SLEEP(1000);
+	}
+
+	client->Shutdown();
+	server->Shutdown();
+	net_service->Shutdown();
+}
 #else
 
 void TestHttp(){
+
+}
+
+void TestLibEvent(){
 
 }
 #endif

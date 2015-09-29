@@ -11,8 +11,10 @@ MACRO(dios_config_module_init MODULE)
 	#
 	# 1. 基本属性配置;
 	#
-	SET(DIOS_MODULE_${MODULE}_ANDROID_NAME "cocos2d_static")
+	SET(DIOS_MODULE_${MODULE}_ANDROID_NAME ${MODULE})
 	SET(DIOS_MODULE_${MODULE}_APP_NAME ${MODULE}) 
+	
+	
 
 	# 模块类型变量; app(APPLICATION); lib(STATIC, SHARED);
 	SET(DIOS_MODULE_${MODULE}_TYPE PREBUILT) # default  pc mac
@@ -40,18 +42,41 @@ MACRO(dios_config_module_init MODULE)
 	# 	额外计算工程当前某目录下的MD5为模块MD5
 	dios_module_add_file_md5(${MODULE} libevent-2.0.21-stable.tar.gz)
 	dios_module_add_directory_md5(${MODULE} patch)
-	# 
+
+	#
 	# 3. 导入模块;
-	# 
+	#
 	# dios_module_link_library(${MODULE} lib FALSE)
 	
 	# dios_module_link_library(${MODULE} lib false)
-	# dios_module_link_library(${MODULE} foo false)
+	# dios_module_link_library(${MODULE} libfoo false)
 	# dios_module_link_library(${MODULE} dios_util false)
 	# dios_module_link_library(${MODULE} dios_com false)
+	IF(DIOS_CMAKE_PLATFORM_WIN32 OR DIOS_CMAKE_PLATFORM_WIN64)
+	# dios_module_link_library(${MODULE} crash_handler false)
+	ENDIF()
+	# dios_module_link_library(${MODULE} boost_atomic false)
+	# dios_module_link_library(${MODULE} boost_chrono false)
+	# dios_module_link_library(${MODULE} boost_thread false)
+	# dios_module_link_library(${MODULE} boost_system false)
+	# dios_module_link_library(${MODULE} boost_date_time false)
+	# dios_module_link_library(${MODULE} boost_filesystem false)
+	# dios_module_link_library(${MODULE} boost_iostreams false)
+	# dios_module_link_library(${MODULE} boost_program_options false)
 	# dios_module_link_library(${MODULE} lua false)
 	# dios_module_link_library(${MODULE} tolua false)
 	# dios_module_link_library(${MODULE} gtest false)
+	# dios_module_link_library(${MODULE} protobuf false)
+	# dios_module_link_library(${MODULE} lua false)
+	# dios_module_link_library(${MODULE} tolua false)
+	# dios_module_link_library(${MODULE} log4cplus false)
+	# dios_module_link_library(${MODULE} libmysql false)
+	# dios_module_link_library(${MODULE} libevent false)
+	# dios_module_link_library(${MODULE} google_breakpad false)
+	# dios_module_link_library(${MODULE} libcurl false)
+	# dios_module_link_library(${MODULE} freetype2 false)
+	# dios_module_link_library(${MODULE} zlib false)
+	# dios_module_link_library(${MODULE} pbc false)
 	# dios_module_link_library(${MODULE} pthread false)
 	# dios_module_link_library(${MODULE} dl false)
 	# dios_module_link_library(${MODULE} socket false)

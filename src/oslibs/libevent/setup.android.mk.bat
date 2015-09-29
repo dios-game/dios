@@ -3,7 +3,6 @@ REM ×¢ÊÍ
 
 set ocd=%cd%
 cd /d %~dp0
-cd ..
 
 if not exist proj.android md proj.android
 cd proj.android
