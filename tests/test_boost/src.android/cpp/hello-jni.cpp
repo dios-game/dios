@@ -18,6 +18,26 @@
 #include <jni.h>
 #include <string>
 #include <map>
+#include "boost/date_time/posix_time/posix_time.hpp"
+
+//static
+static std::string NowString()
+{
+	std::string str = boost::posix_time::to_iso_extended_string(boost::posix_time::second_clock::local_time());
+
+	// 'T'替换为空格符;
+	int index_T = str.find("T");
+	if (index_T != std::string::npos) {
+		str.replace(index_T, 1, " ");
+	}
+
+	// 删除小数点后的字符;
+	int index_dot = str.find(".");
+	if (index_dot != std::string::npos) {
+		str.erase(index_dot);
+	}
+	return str;
+}
 
 extern "C" {
 /* This is a trivial JNI example where we use a native method
@@ -62,7 +82,8 @@ Java_com_example_hellojni_HelloJni_stringFromJNI( JNIEnv* env,
    #define ABI "unknown"
 #endif
     std::string out_string = "Hello from JNI !  Compiled with ABI " ABI ".";
-    return env->NewStringUTF(out_string.c_str());
+    // return env->NewStringUTF(out_string.c_str());
+	return env->NewStringUTF((NowString()+" boost").c_str());
 }
 
 }

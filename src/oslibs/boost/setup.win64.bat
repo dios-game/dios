@@ -18,7 +18,7 @@ SET DIOS_PREBUILT=%cd%\prebuilt
 SET DIOS_PLATFORM=win_x64
 
 echo ##### Ã· æ£∫Ω‚—π %BOOST_NAME% #####
-if not exist %BOOST_NAME%_win goto tar
+if not exist %BOOST_NAME%_win64 goto tar
 goto cd
 :tar
 %DIOS_TOOLS%\7za.exe x -y %BOOST_NAME%.tar.bz2

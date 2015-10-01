@@ -91,7 +91,7 @@ int TestMysql() {}
 #endif
 
 //static
-std::string NowString()
+static std::string NowString()
 {
 	std::string str = boost::posix_time::to_iso_extended_string(boost::posix_time::second_clock::local_time());
 
