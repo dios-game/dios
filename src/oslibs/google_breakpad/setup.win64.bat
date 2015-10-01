@@ -10,14 +10,14 @@ if exist ..\..\..\config.bat call ..\..\..\config.bat
 if exist ..\..\..\..\config.bat call ..\..\..\..\config.bat
 if exist ..\..\..\..\..\config.bat call ..\..\..\..\..\config.bat
 
-cd google-breakpad-read-only
-
 echo ##### 提示：变量配置 #####
 SET DIOS_PREBUILT=%cd%\prebuilt
 SET DIOS_PLATFORM=win64
 set LIBRARY_DIRECTORY_DEBUG=%DIOS_PREBUILT%\lib\%DIOS_PLATFORM%\debug
 set LIBRARY_DIRECTORY_RELEASE=%DIOS_PREBUILT%\lib\%DIOS_PLATFORM%\release
 set INCLUDE_DIRECTORY=%DIOS_PREBUILT%\inc\google_breakpad
+
+cd google-breakpad-read-only
 
 mkdir %LIBRARY_DIRECTORY_DEBUG%
 mkdir %LIBRARY_DIRECTORY_RELEASE%
@@ -27,11 +27,6 @@ cd src\client\windows
 call ..\..\tools\gyp\gyp.bat --no-circular-check breakpad_client.gyp
 
 cd ..\..\..\
-
-call %tools%vsvars32.bat
-:BuildConsole.exe src\client\windows\breakpad_client.sln /prj=exception_handler  /Cfg="Debug|WIN32,Release|WIN32" 
-:BuildConsole.exe src\client\windows\breakpad_client.sln /prj=crash_generation_client  /Cfg="Debug|WIN32,Release|WIN32" 
-:BuildConsole.exe src\client\windows\breakpad_client.sln /prj=common  /Cfg="Debug|WIN32,Release|WIN32" 
 
 : load_vsvars
 : using devenv directly - buildconsole doesn't support building vs2010 vcxproj files directly, yet

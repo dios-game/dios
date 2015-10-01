@@ -26,5 +26,5 @@ int main(int argc, char **argv)
 {
 	boost::thread thread([](){ printf("%s hello thread\n", NowString().c_str()); });
 	thread.join();
-	printf("%s hello int %d \n", NowString().c_str(), sizeof(ds_int32));
+	printf("%s hello ptr %d \n", NowString().c_str(), sizeof(void*));
 }

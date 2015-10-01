@@ -28,11 +28,6 @@ call ..\..\tools\gyp\gyp.bat --no-circular-check breakpad_client.gyp
 
 cd ..\..\..\
 
-call %tools%vsvars32.bat
-:BuildConsole.exe src\client\windows\breakpad_client.sln /prj=exception_handler  /Cfg="Debug|WIN32,Release|WIN32" 
-:BuildConsole.exe src\client\windows\breakpad_client.sln /prj=crash_generation_client  /Cfg="Debug|WIN32,Release|WIN32" 
-:BuildConsole.exe src\client\windows\breakpad_client.sln /prj=common  /Cfg="Debug|WIN32,Release|WIN32" 
-
 : load_vsvars
 : using devenv directly - buildconsole doesn't support building vs2010 vcxproj files directly, yet
 devenv.com src\client\windows\breakpad_client.sln /Upgrade

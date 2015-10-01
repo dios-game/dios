@@ -1,7 +1,7 @@
 
 
-set(DIOS_CONFIG_TEMPLATE lib)
-SET(DIOS_CONFIG_MODULE boost) 
+set(DIOS_CONFIG_TEMPLATE console)
+SET(DIOS_CONFIG_MODULE test_crash_handle) 
 
 
 # 
@@ -9,23 +9,17 @@ SET(DIOS_CONFIG_MODULE boost)
 # 
 MACRO(dios_config_module_init MODULE)
 	
-	# 
+	#
 	# 1. 基本属性配置;
-	# 
+	#
 	SET(DIOS_MODULE_${MODULE}_ANDROID_NAME ${MODULE})
 	SET(DIOS_MODULE_${MODULE}_APP_NAME ${MODULE}) 
 	
-	# andorid子库
-	SET(DIOS_MODULE_${MODULE}_date_time_ANDROID_NAME boost_date_time)
-	SET(DIOS_MODULE_${MODULE}_signals_ANDROID_NAME boost_signals)
-	SET(DIOS_MODULE_${MODULE}_system_ANDROID_NAME boost_system)
-	SET(DIOS_MODULE_${MODULE}_thread_ANDROID_NAME boost_thread)
-	SET(DIOS_MODULE_${MODULE}_chrono_ANDROID_NAME boost_chrono)
-	SET(DIOS_MODULE_${MODULE}_atomic_ANDROID_NAME boost_atomic)
+	
 
 	# 模块类型变量; app(APPLICATION); lib(STATIC, SHARED);
-	SET(DIOS_MODULE_${MODULE}_TYPE SHARED) # default  pc mac
-	SET(DIOS_MODULE_${MODULE}_ANDROID_TYPE STATIC)
+	SET(DIOS_MODULE_${MODULE}_TYPE APPLICATION) # default  pc mac
+	SET(DIOS_MODULE_${MODULE}_ANDROID_TYPE SHARED)
 	SET(DIOS_MODULE_${MODULE}_IOS_TYPE STATIC) # can only build static library on ios
 
 	# 模块版本;
@@ -38,8 +32,8 @@ MACRO(dios_config_module_init MODULE)
 	SET(DIOS_MODULE_${MODULE}_IPHONEOS_DEPLOYMENT_TARGET 5.0)
 
 	# 是否使用预编译头
-	SET(DIOS_MODULE_${MODULE}_PRECOMPILED false)
-	SET(DIOS_MODULE_${MODULE}_PREBUILT true)
+	SET(DIOS_MODULE_${MODULE}_PRECOMPILED true)
+	SET(DIOS_MODULE_${MODULE}_PREBUILT false)
 
 	# 
 	# 2. 计算md5;
@@ -58,10 +52,31 @@ MACRO(dios_config_module_init MODULE)
 	# dios_module_link_library(${MODULE} libfoo false)
 	# dios_module_link_library(${MODULE} dios_util false)
 	# dios_module_link_library(${MODULE} dios_com false)
+	IF(DIOS_CMAKE_PLATFORM_WIN32 OR DIOS_CMAKE_PLATFORM_WIN64)
+	dios_module_link_library(${MODULE} crash_handler false)
+	ENDIF()
+	# dios_module_link_library(${MODULE} boost_atomic false)
+	# dios_module_link_library(${MODULE} boost_chrono false)
+	# dios_module_link_library(${MODULE} boost_thread false)
+	# dios_module_link_library(${MODULE} boost_system false)
+	# dios_module_link_library(${MODULE} boost_date_time false)
+	# dios_module_link_library(${MODULE} boost_filesystem false)
+	# dios_module_link_library(${MODULE} boost_iostreams false)
+	# dios_module_link_library(${MODULE} boost_program_options false)
 	# dios_module_link_library(${MODULE} lua false)
 	# dios_module_link_library(${MODULE} tolua false)
 	# dios_module_link_library(${MODULE} gtest false)
+	# dios_module_link_library(${MODULE} protobuf false)
+	# dios_module_link_library(${MODULE} lua false)
+	# dios_module_link_library(${MODULE} tolua false)
+	# dios_module_link_library(${MODULE} log4cplus false)
+	# dios_module_link_library(${MODULE} libmysql false)
 	# dios_module_link_library(${MODULE} libevent false)
+	# dios_module_link_library(${MODULE} google_breakpad false)
+	# dios_module_link_library(${MODULE} libcurl false)
+	# dios_module_link_library(${MODULE} freetype2 false)
+	# dios_module_link_library(${MODULE} zlib false)
+	# dios_module_link_library(${MODULE} pbc false)
 	# dios_module_link_library(${MODULE} pthread false)
 	# dios_module_link_library(${MODULE} dl false)
 	# dios_module_link_library(${MODULE} socket false)
@@ -69,7 +84,6 @@ MACRO(dios_config_module_init MODULE)
 	# dios_module_link_library(${MODULE} z false)
 	# dios_module_link_library(${MODULE} inet false)
 	# dios_module_link_library(${MODULE} vld false)
-
 
 ENDMACRO()
 
@@ -79,57 +93,15 @@ ENDMACRO()
 # 
 MACRO(dios_config_find_module MODULE)
 
+	# 
 	#  dios_find_module(<module>
 	#    [PACKAGE <package>]
 	#    [COMPONENTS <component...>]
 	#    [HEADERS <path>])
+	# 
 
-	SET(LIBRARY_LIST ${ARGN})
+	dios_find_module(${MODULE})
 
-	UNSET(BOOST_LIBS)
-	# 转换用户模块名称
-	FOREACH(TEMP_LIBRARY_NAME ${LIBRARY_LIST})
-		IF(TEMP_LIBRARY_NAME MATCHES "boost_filesystem")
-			LIST(APPEND BOOST_LIBS filesystem)
-		ELSEIF(TEMP_LIBRARY_NAME MATCHES "boost_iostreams")
-			LIST(APPEND BOOST_LIBS iostreams)
-		ELSEIF(TEMP_LIBRARY_NAME MATCHES "boost_chrono")
-			LIST(APPEND BOOST_LIBS chrono)
-		ELSEIF(TEMP_LIBRARY_NAME MATCHES "boost_atomic")
-			LIST(APPEND BOOST_LIBS atomic)
-		ELSEIF(TEMP_LIBRARY_NAME MATCHES "boost_program_options")
-			LIST(APPEND BOOST_LIBS program_options)
-		ELSEIF(TEMP_LIBRARY_NAME MATCHES "boost_python")
-			LIST(APPEND BOOST_LIBS python)
-		ELSEIF(TEMP_LIBRARY_NAME MATCHES "boost_regex")
-			LIST(APPEND BOOST_LIBS regex)
-		ELSEIF(TEMP_LIBRARY_NAME MATCHES "boost_serialization")
-			LIST(APPEND BOOST_LIBS serialization)
-		ELSEIF(TEMP_LIBRARY_NAME MATCHES "boost_signals")
-			LIST(APPEND BOOST_LIBS signals)
-		ELSEIF(TEMP_LIBRARY_NAME MATCHES "boost_system")
-			LIST(APPEND BOOST_LIBS system)
-		ELSEIF(TEMP_LIBRARY_NAME MATCHES "boost_thread")
-			LIST(APPEND BOOST_LIBS thread)
-		ELSEIF(TEMP_LIBRARY_NAME MATCHES "boost_wave")
-			LIST(APPEND BOOST_LIBS wave)
-		ELSEIF(TEMP_LIBRARY_NAME MATCHES "boost_date_time")
-			LIST(APPEND BOOST_LIBS date_time)
-		ENDIF()
-	ENDFOREACH()
-	
-	MESSAGE(STATUS "Boost libs: ${BOOST_LIBS}")
-	
-	IF(DIOS_CMAKE_PLATFORM_WIN32 OR DIOS_CMAKE_PLATFORM_WIN64)
-		dios_find_boost(${BOOST_LIBS})	
-	ELSEIF(DIOS_CMAKE_PLATFORM_UNIX)	
-		dios_find_boost(${BOOST_LIBS})
-	ELSEIF(DIOS_CMAKE_PLATFORM_ANDORID)
-	ELSEIF(DIOS_CMAKE_PLATFORM_IOS)
-		dios_find_boost(${BOOST_LIBS})
-	ELSE()
-		MESSAGE(FATAL "Load ${MODULE} is not match!")
-	ENDIF()
 ENDMACRO()
 
 
@@ -144,6 +116,9 @@ MACRO(dios_config_module_pre_build)
 	# 
 	# SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /subsystem:windows")
 	# 
+	IF(DIOS_CMAKE_PLATFORM_WIN32 OR DIOS_CMAKE_PLATFORM_WIN64)
+		# SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /subsystem:windows")
+	ENDIF()
 
 ENDMACRO()
 
@@ -156,5 +131,11 @@ MACRO(dios_config_module_post_build)
 	# 添加target后的事件
 	# dios_module_add_libraries(<module> <librariy...>)
 	# 
-
+	IF(DIOS_CMAKE_PLATFORM_WIN32 OR DIOS_CMAKE_PLATFORM_WIN64)
+		create_target_launcher(${DIOS_BUILDER_MODULE} 
+			WORKING_DIRECTORY "$(ProjectDir)"
+			LAUNCHER_DIRECTORY ${CMAKE_BINARY_DIR}/output
+			LAUNCHER ${DIOS_BUILDER_MODULE}.exe
+			)
+	ENDIF()
 ENDMACRO()

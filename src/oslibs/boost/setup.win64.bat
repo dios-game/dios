@@ -43,14 +43,14 @@ if defined VS140COMNTOOLS (
 )
 
 : 生成除了python外的所有静态库
-.\bjam.exe --without-python --without-serialization --without-regex --without-graph --without-graph_parallel --without-mpi --without-test --without-signals --toolset=%tools% variant=release threading=multi runtime-link=shared link=shared address-model=64 --exec-prefix=%DIOS_PREBUILT%\bin\%DIOS_PLATFORM%\release --libdir=%DIOS_PREBUILT%\lib\%DIOS_PLATFORM%\  --includedir=%DIOS_PREBUILT%\inc install
+.\bjam.exe --without-python --without-serialization --without-regex --without-graph --without-graph_parallel --without-mpi --without-test --without-signals --toolset=%tools% variant=release threading=multi runtime-link=shared link=shared address-model=64 --exec-prefix=%DIOS_PREBUILT%\bin\%DIOS_PLATFORM%\release --libdir=%DIOS_PREBUILT%\lib\%DIOS_PLATFORM%\boost  --includedir=%DIOS_PREBUILT%\inc install
 if %errorlevel% neq 0 goto :cmEnd
 
 mkdir %DIOS_PREBUILT%\bin\%DIOS_PLATFORM%\release
 xcopy /y/s %DIOS_PREBUILT%\lib\%DIOS_PLATFORM%\boost\*.dll %DIOS_PREBUILT%\bin\%DIOS_PLATFORM%\release\
 del %DIOS_PREBUILT%\lib\%DIOS_PLATFORM%\boost\*.dll
 
-.\bjam.exe --without-python --without-serialization --without-regex --without-graph --without-graph_parallel --without-mpi --without-test --without-signals --toolset=%tools% variant=debug threading=multi runtime-link=shared link=shared address-model=64 --exec-prefix=%DIOS_PREBUILT%\bin\%DIOS_PLATFORM%\debug --libdir=%DIOS_PREBUILT%\lib\%DIOS_PLATFORM%\  --includedir=%DIOS_PREBUILT%\inc install
+.\bjam.exe --without-python --without-serialization --without-regex --without-graph --without-graph_parallel --without-mpi --without-test --without-signals --toolset=%tools% variant=debug threading=multi runtime-link=shared link=shared address-model=64 --exec-prefix=%DIOS_PREBUILT%\bin\%DIOS_PLATFORM%\debug --libdir=%DIOS_PREBUILT%\lib\%DIOS_PLATFORM%\boost  --includedir=%DIOS_PREBUILT%\inc install
 if %errorlevel% neq 0 goto :cmEnd
 
 mkdir %DIOS_PREBUILT%\bin\%DIOS_PLATFORM%\debug
