@@ -19,17 +19,17 @@ SET DIOS_PREBUILT=%cd%\prebuilt
 SET DIOS_PLATFORM=win32
 
 echo ##### 提示：解压 %BOOST_NAME% #####
-if not exist %BOOST_NAME%_win goto tar
+if not exist %BOOST_NAME%_win32 goto tar
 goto cd
 
 :tar
 %DIOS_TOOLS%\7za.exe x -y %BOOST_NAME%.tar.bz2
 %DIOS_TOOLS%\7za.exe x -y %BOOST_NAME%.tar
 del %BOOST_NAME%.tar /Q
-move %BOOST_NAME% %BOOST_NAME%_win
+move %BOOST_NAME% %BOOST_NAME%_win32
 
 :cd
-cd %BOOST_NAME%_win
+cd %BOOST_NAME%_win32
 
 echo ##### 提示：编译 %BOOST_NAME% #####
 copy /y ..\bjam.exe bjam.exe
