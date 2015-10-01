@@ -16,7 +16,7 @@ if exist ..\..\..\..\..\..\..\config.bat call ..\..\..\..\..\..\..\config.bat
 echo ##### 提示：变量配置 #####
 set LIBEVENT_VERSION_NAME=libevent-2.0.21-stable
 SET DIOS_PREBUILT=%cd%\prebuilt
-SET DIOS_PLATFORM=win_x86
+SET DIOS_PLATFORM=win32
 
 echo ##### 提示：解压 %LIBEVENT_VERSION_NAME% #####
 if not exist %LIBEVENT_VERSION_NAME% (

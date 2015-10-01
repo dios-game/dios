@@ -15,7 +15,7 @@ if exist ..\..\..\..\..\..\..\config.bat call ..\..\..\..\..\..\..\config.bat
 echo ##### 提示：变量配置 #####
 SET mysql_name=mysql-connector-c-6.1.6-src
 SET DIOS_PREBUILT=%cd%\prebuilt
-SET DIOS_PLATFORM=win_x86
+SET DIOS_PLATFORM=win32
 
 echo ##### 提示：解压 %mysql_name% #####
 IF EXIST %mysql_name%-win GOTO FILE_EXISTED

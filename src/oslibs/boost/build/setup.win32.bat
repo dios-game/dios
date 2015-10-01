@@ -16,7 +16,7 @@ if exist ..\..\..\..\..\..\..\config.bat call ..\..\..\..\..\..\..\config.bat
 echo ##### 提示：变量配置 #####
 SET BOOST_NAME=boost_1_55_0
 SET DIOS_PREBUILT=%cd%\prebuilt
-SET DIOS_PLATFORM=win_x86
+SET DIOS_PLATFORM=win32
 
 echo ##### 提示：解压 %BOOST_NAME% #####
 if not exist %BOOST_NAME%_win goto tar

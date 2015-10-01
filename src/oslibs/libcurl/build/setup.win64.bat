@@ -16,7 +16,7 @@ if exist ..\..\..\..\..\..\..\config.bat call ..\..\..\..\..\..\..\config.bat
 echo ##### 提示：变量配置 #####
 set LIBCURL_VERSION_NAME=curl-7.33.0
 SET DIOS_PREBUILT=%cd%\prebuilt
-SET DIOS_PLATFORM=win_x86
+SET DIOS_PLATFORM=win32
 set BIN_DIRECTORY_DEBUG=%DIOS_PREBUILT%\bin\%DIOS_PLATFORM%\debug
 set BIN_DIRECTORY_RELEASE=%DIOS_PREBUILT%\bin\%DIOS_PLATFORM%\release
 set LIBRARY_DIRECTORY_DEBUG=%DIOS_PREBUILT%\lib\%DIOS_PLATFORM%\debug

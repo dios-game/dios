@@ -12,7 +12,7 @@ if exist ..\..\..\..\..\config.bat call ..\..\..\..\..\config.bat
 
 echo ##### 提示：变量配置 #####
 SET DIOS_PREBUILT=%cd%\prebuilt
-SET DIOS_PLATFORM=win_x86
+SET DIOS_PLATFORM=win32
 set LIBRARY_DIRECTORY_DEBUG=%DIOS_PREBUILT%\lib\%DIOS_PLATFORM%\debug
 set LIBRARY_DIRECTORY_RELEASE=%DIOS_PREBUILT%\lib\%DIOS_PLATFORM%\release
 set INCLUDE_DIRECTORY=%DIOS_PREBUILT%\inc\google_breakpad

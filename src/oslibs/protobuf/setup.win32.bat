@@ -15,7 +15,7 @@ if exist ..\..\..\..\..\..\..\config.bat call ..\..\..\..\..\..\..\config.bat
 echo ##### 提示：变量配置 #####
 set LIB_VERSION_NAME=protobuf-2.6.1
 SET DIOS_PREBUILT=%cd%\prebuilt
-SET DIOS_PLATFORM=win_x86
+SET DIOS_PLATFORM=win32
 
 echo ##### 提示：解压 protobuf-2.6.1 #####
 %DIOS_TOOLS%\7za.exe x -y %LIB_VERSION_NAME%.tar.gz

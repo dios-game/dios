@@ -17,7 +17,7 @@ set PROJECT=zlib
 set ZLIB_ZIP_NAME=zlib128
 set ZLIB_NAME=zlib-1.2.8
 SET DIOS_PREBUILT=%cd%\prebuilt
-SET DIOS_PLATFORM=win_x86
+SET DIOS_PLATFORM=win32
 
 echo ##### Ã· æ£∫Ω‚—π %ZLIB_ZIP_NAME% #####
 if not exist %ZLIB_NAME% ( %DIOS_TOOLS%\bsdtar.exe -zxvf %ZLIB_ZIP_NAME%.zip
