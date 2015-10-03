@@ -20,8 +20,8 @@ NS_UTIL_BEGIN
 
 namespace detail
 {
-	const char* strue = "true";
-	const char* sfalse = "false";
+	const char* const strue = "true";
+	const char* const sfalse = "false";
 
 	template <typename T>
 	std::string to_string(T value)
@@ -85,7 +85,7 @@ namespace detail
 			return !!from;
 		}
 	};
-	bool checkbool(const char* from, const size_t len, const char* s)
+	static bool checkbool(const char* from, const size_t len, const char* s)
 	{
 		for (size_t i = 0; i < len; i++)
 		{

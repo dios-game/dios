@@ -165,23 +165,38 @@ TEST_F(CryptoTest, DecryptXOR){
 
 TEST(UtilTest, TimeTest1){
 
-	ds_uint64 now = 1435753942;
-	ds_uint64 next = now + 1000;
+	// 字符串;
+	dios::util::CTime string_time("2015-07-01 20:32:22");
 
-	std::string now_date_time = dios::util::CTime::ToDateTimeString(now);
-	std::string now_date = dios::util::CTime::ToDateString(now);
-	std::string now_time = dios::util::CTime::ToTimeString(now);
-	std::string time_span = dios::util::CTime::ToTimeSpanString(1000);
-	std::string next_date_time = dios::util::CTime::ToDateTimeString(next);
-	ds_uint64 next2 = dios::util::CTime::ToTime(next_date_time);
+	// 2012秒数;
+	ds_uint64 stime = 110406742;
+	dios::util::CTime second_time(stime);
 
-	ds_uint64 now_1 = dios::util::CTime::NowTime();
+	// 不常用的time_t;
+	std::time_t ctime = 1435753942;
+	dios::util::CTime c_time;
+	c_time.FromCTime(ctime);
 
-	EXPECT_STREQ("2015-07-01 20:32:22", now_date_time.c_str());
-	EXPECT_STREQ("2015-07-01", now_date.c_str());
-	EXPECT_STREQ("20:32:22", now_time.c_str());
-	EXPECT_STREQ("00:16:40", time_span.c_str());
-	EXPECT_EQ(next, next2);
+	EXPECT_STREQ("2015-07-01 20:32:22", string_time.ToString().c_str());
+	EXPECT_STREQ("2015-07-01 20:32:22", second_time.ToString().c_str());
+	EXPECT_STREQ("2015-07-01 20:32:22", c_time.ToString().c_str());
+	EXPECT_STREQ("2015-07-01", string_time.ToDateString().c_str());
+	EXPECT_STREQ("20:32:22", string_time.ToTimeString().c_str());
+
+	// 时间间隔;	
+	dios::util::CTimeSpan time_span(1000);
+	EXPECT_STREQ("00:16:40", time_span.ToString().c_str());
+
+	time_span.Reset(60);
+	auto last_time = second_time - time_span;
+	EXPECT_STREQ("2015-07-01 20:31:22", last_time.ToString().c_str());
+
+	auto time_span_x = second_time - "2015-07-01 20:31:22";
+	EXPECT_STREQ("00:01:00", time_span_x.ToString().c_str());
+
+	// 获取当前时间;
+	dios::util::CTime now_1 = dios::util::CTime::Now();
+	ds_uint64 now_1_time = now_1.GetSeconds();
 }
 
 TEST(UtilTest, BatchTaskListTest){
