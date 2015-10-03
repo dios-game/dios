@@ -54,64 +54,45 @@ ds_uint32 CTimer::GetMilliSecond( void )
 }
 #endif
 
-CIntervalTimer::CIntervalTimer() : interval_(0), current_(0)
-{
 
+ds_int64 CElapsedTimer::GetElapsedHours() const
+{
+	return std::chrono::duration_cast<std::chrono::hours>(std::chrono::high_resolution_clock::now() - m_begin).count();
 }
 
-void CIntervalTimer::Update( ds_uint32 diff )
+ds_int64 CElapsedTimer::GetElapsedMinutes() const
 {
-	current_ += diff; if(current_<0) current_=0;
+	return std::chrono::duration_cast<std::chrono::minutes>(std::chrono::high_resolution_clock::now() - m_begin).count();
 }
 
-bool CIntervalTimer::IsPassed()
+ds_int64 CElapsedTimer::GetElapsedSeconds() const
 {
-	return current_ >= interval_;
+	return std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - m_begin).count();
 }
 
-void CIntervalTimer::Reset()
+ds_int64 CElapsedTimer::GetElapsedNano() const
 {
-	if(current_ >= interval_) current_ -= interval_;
+	return std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now() - m_begin).count();
 }
 
-CExpiryTimer::CExpiryTimer( ds_uint32 expiry ) : expiry_time_(expiry)
+ds_int64 CElapsedTimer::GetElapsedMicro() const
 {
-
+	return std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - m_begin).count();
 }
 
-void CExpiryTimer::Update( ds_uint32 diff )
+double CElapsedTimer::GetElapsed() const
 {
-	if(expiry_time_){
-		expiry_time_ -= diff;
-		if(expiry_time_<0){
-			expiry_time_ = 0;
-		}
-	}
+	return std::chrono::duration_cast<std::chrono::duration<double>>(std::chrono::high_resolution_clock::now() - m_begin).count();
 }
 
-bool CExpiryTimer::IsPassed( void ) const
+void CElapsedTimer::Reset()
 {
-	return (expiry_time_ <= 0);
+	m_begin = std::chrono::high_resolution_clock::now();
 }
 
-void CExpiryTimer::Reset( ds_uint32 expiry_time )
+CElapsedTimer::CElapsedTimer() : m_begin(std::chrono::high_resolution_clock::now())
 {
-	expiry_time_ = expiry_time;
-}
 
-CElapsedTimer::CElapsedTimer()
-{
-	time_begin_ = CTimer::GetMilliSecond();
-}
-
-ds_uint32 CElapsedTimer::GetElapsedTime(ds_boolean reset/*=true*/)
-{
-	ds_uint32 time_end = CTimer::GetMilliSecond();
-	ds_uint32 rlt = time_end - time_begin_;
-	if(reset){
-		time_begin_ = time_end;
-	}
-	return rlt;
 }
 
 NS_UTIL_END
