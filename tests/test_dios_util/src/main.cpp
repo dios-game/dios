@@ -10,6 +10,7 @@
 #include "dios_util/util_time.h"
 #include "dios_util/util_timer.h"
 #include "dios_util/util_batch_task_list.h"
+#include "dios_util/util_scope_guard.h"
 
 #include "pthread.h"
 #include <thread>
@@ -228,6 +229,9 @@ TEST(UtilTest, BatchTaskListTest){
 void* thread_proc( void* param ){
 
 	printf("hello thread\n");
+
+	DS_ON_SCOPE_EXIT([](){ printf("thread scope exit\n");  });
+
 	return 0;
 }
 
