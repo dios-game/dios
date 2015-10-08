@@ -34,7 +34,7 @@ bool CDynamicLib::Load()
 {
 	if (load_status_ == CDynamicLib::ST_UNLOADED)
 	{
-		sLogDebug("[component:info ] CDynamicLib::load dll(%s)", name_.c_str());
+		sLogDebug("[com:info ] CDynamicLib::load dll(%s)", name_.c_str());
 
 		std::string name = name_;
 #if (DIOS_TARGET_PLATFORM == DIOS_PLATFORM_WIN32)
@@ -57,7 +57,7 @@ bool CDynamicLib::Load()
 
 		if( !dyn_lib_instance_ )
 		{
-			sLogDebug("[component:error] CDynamicLib::load dll(%s) failed [ none instance:error(%s) ]", name.c_str(), GetLastError().c_str());
+			sLogDebug("[com:error] CDynamicLib::load dll(%s) failed [ none instance:error(%s) ]", name.c_str(), GetLastError().c_str());
 
 			return false;
 		}
@@ -65,7 +65,7 @@ bool CDynamicLib::Load()
 		load_status_ = CDynamicLib::ST_LOADED;
 		return true;
 	}
-	sLogDebug("[component:info ] CDynamicLib::load is loaded", name_.c_str());
+	sLogDebug("[com:info ] CDynamicLib::load is loaded", name_.c_str());
 	return true;
 }
 
@@ -76,16 +76,16 @@ bool CDynamicLib::Unload()
 	{
 		if ( DYNAMIC_LIB_UNLOAD( dyn_lib_instance_ ) )	
 		{
-			sLogDebug("[component:error] CDynamicLib::unload dll(%s) failed [ call dynamic_lib_UNLOAD failed ]", name_.c_str());
+			sLogDebug("[com:error] CDynamicLib::unload dll(%s) failed [ call dynamic_lib_UNLOAD failed ]", name_.c_str());
 			return false;
 		}
 
-		sLogDebug("[component:info ] CDynamicLib::unload dll(%s) ok", name_.c_str());
+		sLogDebug("[com:info ] CDynamicLib::unload dll(%s) ok", name_.c_str());
 		load_status_ = CDynamicLib::ST_UNLOADED;
 		return true;
 	}
 
-	sLogDebug("[component:error] CDynamicLib::unload dll(%s) failed [ cant find the dll ]", name_.c_str());
+	sLogDebug("[com:error] CDynamicLib::unload dll(%s) failed [ cant find the dll ]", name_.c_str());
 	return false;
 }
 

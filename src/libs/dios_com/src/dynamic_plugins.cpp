@@ -28,7 +28,7 @@ bool CDynamicPlugins::LoadPlugin( const std::string& plugin_name )
 
 bool CDynamicPlugins::_LoadPlugin( const std::string& plugin_name, CDynamicLib::Ptr lib_ptr )
 {
-	sLogWarn("[component:warn] CComponentPlugins::loadPlugin begin");
+	sLogWarn("[com:warn] CDynamicPlugins::loadPlugin begin");
 
 	if( !lib_ptr || !lib_ptr->Load() ) {
 		return false;
@@ -37,14 +37,14 @@ bool CDynamicPlugins::_LoadPlugin( const std::string& plugin_name, CDynamicLib::
 	// 同时要有以上三种接口的dll才是标准插件，否则不承认;
 	DLL_START_PLUGIN pFunc = (DLL_START_PLUGIN)lib_ptr->GetSymbol("DllPlugin");
 	if ( !pFunc ) {
-		sLogWarn("[component:warn] CComponentPlugins::loadPlugin cant find entry(DllPlugin)");
+		sLogWarn("[com:warn] CDynamicPlugins::loadPlugin cant find entry(DllPlugin)");
 		return false;
 	}
 
-	sLogInfo("[component:info ] CComponentPlugins::loadPlugin load dll(%s)'s plugins", plugin_name.c_str());
+	sLogInfo("[com:info ] CDynamicPlugins::loadPlugin load dll(%s)'s plugins", plugin_name.c_str());
 	(*pFunc)(lib_ptr);
 
-	sLogInfo("[component:info ] CComponentPlugins::loadPlugin load dll(%s)'s plugins finished", plugin_name.c_str());
+	sLogInfo("[com:info ] CDynamicPlugins::loadPlugin load dll(%s)'s plugins finished", plugin_name.c_str());
 	return true;
 }
 NS_DS_END

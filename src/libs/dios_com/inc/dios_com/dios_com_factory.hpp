@@ -5,6 +5,9 @@
 
 #include "dios_com_interface.hpp"
 
+/*
+ *	组件工厂创建功能;
+ */
 namespace dios{
 	namespace detail{
 		class CComFactory{
