@@ -127,9 +127,9 @@ CTime::CTime(const std::string& time)
 	FromString(time);
 }
 
-CTime::CTime(ds_int64 seconds_from_2012)
+CTime::CTime(const std::time_t& tt)
 {
-	FromSeconds(seconds_from_2012);
+	FromCTime(tt);
 }										   
 
 CTime::CTime(const CTime& t)
@@ -143,31 +143,6 @@ CTime::CTime(const std::chrono::system_clock::time_point& time)
 }
 
 CTime::~CTime(){}
-
-//static
-static std::time_t _GetTimePointFromString(const std::string& time_string){
-
-	std::time_t time = 0;
-	try	{
-		std::tm tm_x = {};
-		std::istringstream ss(time_string);
-		// ss.imbue(std::locale("de_DE.utf-8"));
-		ss >> std::get_time(&tm_x, "%Y-%m-%d %H:%M:%S");
-		time = std::mktime(&tm_x);
-	}
-	catch (...){
-		time = 0;
-	}
-	return time;
-}
-
-static ds_int64 _GetSecondsFrom2012(const std::time_t& time)
-{
-	auto time_2012 = _GetTimePointFromString(DS_TIME_STRING_2012);
-	ds_int64 delta = time - time_2012;
-	return delta;
-}
-
 
 CTime CTime::Now()
 {
@@ -193,7 +168,6 @@ void CTime::FromString(const std::string& time)
 void CTime::FromCTime(const time_t& t)
 {
 	time_ = t;
-	seconds_from_2012_ = _GetSecondsFrom2012(time_);
 }
 
 void CTime::FromTimePoint(const std::chrono::system_clock::time_point& t)
@@ -201,21 +175,14 @@ void CTime::FromTimePoint(const std::chrono::system_clock::time_point& t)
 	FromCTime(std::chrono::system_clock::to_time_t(t));
 }
 
-void CTime::FromSeconds(ds_int64 seconds_from_2012)
-{
-	auto time_2012 = _GetTimePointFromString(DS_TIME_STRING_2012);
-	FromCTime(time_2012 + seconds_from_2012);
-}
-
 void CTime::Copy(const CTime& t)
 {
 	time_ = t.time_;
-	seconds_from_2012_ = t.seconds_from_2012_;
 }
 
 ds_uint32 CTime::GetSeconds(void) const
 {
-	return seconds_from_2012_;
+	return time_;
 }
 
 void CTime::NextDays(int days/*=1*/, int hours/*=0*/)
@@ -231,11 +198,11 @@ bool			CTime::operator>=	(const CTime& t) const { return time_ >= t.time_; }
 bool			CTime::operator<=	(const CTime& t) const { return time_ <= t.time_; }
 bool			CTime::operator==	(const CTime& t) const { return time_ == t.time_; }
 bool			CTime::operator!=	(const CTime& t) const { return time_ != t.time_; }
-CTime			CTime::operator-	(const CTimeSpan& tSpan) const { CTime rtn(seconds_from_2012_ - tSpan.duration_); return rtn; }
+CTime			CTime::operator-	(const CTimeSpan& tSpan) const { CTime rtn(time_ - tSpan.duration_); return rtn; }
 CTimeSpan		CTime::operator-	(const CTime& t) const { CTimeSpan span; span.duration_ = time_ - t.time_; return span; }
-CTime			CTime::operator+	(const CTimeSpan& tSpan) const { CTime rtn(seconds_from_2012_ + tSpan.duration_); return rtn; }
-void			CTime::operator-=	(const CTimeSpan& tSpan) { time_ -= tSpan.duration_; seconds_from_2012_ = _GetSecondsFrom2012(time_); }
-void			CTime::operator+=	(const CTimeSpan& tSpan) { time_ += tSpan.duration_; seconds_from_2012_ = _GetSecondsFrom2012(time_); }
+CTime			CTime::operator+	(const CTimeSpan& tSpan) const { CTime rtn(time_ + tSpan.duration_); return rtn; }
+void			CTime::operator-=	(const CTimeSpan& tSpan) { time_ -= tSpan.duration_; }
+void			CTime::operator+=	(const CTimeSpan& tSpan) { time_ += tSpan.duration_; }
 
 //char*
 bool			CTime::operator>	(const std::string& param) const { CTime time(param); return (*this)> time; }

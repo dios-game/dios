@@ -64,14 +64,13 @@ public:
 	CTime();
 	CTime(const CTime& t);
 	CTime(const std::string& time); // 2012-1-1 0:0:0 
-	CTime(ds_int64 seconds_from_2012);
+	CTime(const std::time_t& tt);
 	CTime(const std::chrono::system_clock::time_point& time);
 	~CTime();
 
 	void FromString(const std::string& time);
 	void FromCTime(const std::time_t& tt);
 	void FromTimePoint(const std::chrono::system_clock::time_point& time);
-	void FromSeconds(ds_int64 seconds_from_2012);
 	void Copy(const CTime& t);
 
 	std::string	ToString() const; // 获取当前日期标记YY-MM-DD HH:MM:SS; 
@@ -106,7 +105,6 @@ public:
 
 private:
 	std::time_t time_;
-	ds_int64 seconds_from_2012_;
 };
 
 NS_UTIL_END

@@ -232,6 +232,7 @@ void* thread_proc( void* param ){
 
 	DS_ON_SCOPE_EXIT([](){ printf("thread scope exit\n");  });
 
+
 	return 0;
 }
 
