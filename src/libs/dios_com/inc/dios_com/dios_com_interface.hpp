@@ -15,7 +15,6 @@ namespace dios{
 	{
 	public:
 		typedef std::shared_ptr<ICom> Ptr;
-		typedef std::function<ICom* (void)> Factory;
 		virtual ~ICom(){}
 
 	public:

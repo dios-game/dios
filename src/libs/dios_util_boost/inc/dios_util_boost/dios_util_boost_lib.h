@@ -13,4 +13,7 @@
 	#define DIOS_UTIL_BOOST_DECL
 #endif
 
+#define NS_UTIL_BOOST_BEGIN namespace util_boost {
+#define NS_UTIL_BOOST_END }
+
 #endif // DIOS_UTIL_BOOST_LIB_H

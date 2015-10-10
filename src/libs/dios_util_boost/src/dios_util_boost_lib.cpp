@@ -1,2 +1,7 @@
 #include "precompiled.h"
 #include "dios_util_boost_lib.h"
+#include "util_boost_header.hpp"
+#include "util_boost_multi_type_container.hpp"
+#include "util_boost_state_mathine.hpp"
+#include "util_boost_uuid_function.hpp"
+#include "util_boost_token.hpp"
