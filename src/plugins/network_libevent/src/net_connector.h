@@ -5,9 +5,9 @@ class CNetService;
 class CConnector : public IConnector
 {
 public:
-	typedef boost::shared_ptr<CConnector> Ptr;
+	typedef std::shared_ptr<CConnector> Ptr;
 
-	CConnector(ICom::Ptr component_depend, CNetService* net_service_impl);
+	CConnector(CNetService* net_service_impl);
 	~CConnector(void);
 
 
@@ -41,13 +41,13 @@ public:
 	inline bool shutdown(void) { return shutdown_; }
 	inline int sock_id() { return sock_id_;}
 
-	void set_close_connect(xenon::util_boost::CEventListener& close_connetion) { net_shutdown_listener_ = close_connetion; }
+	void set_close_connect(dios::util::CEventListener& close_connetion) { net_shutdown_listener_ = close_connetion; }
 
 	std::string* GetRecvBuffer(void);
 private:
 	// bufferevent * bufferev_;
-	boost::shared_ptr<bufferevent> bufferev_;
-	boost::weak_ptr<bufferevent> bufferev_weak_;
+	std::shared_ptr<bufferevent> bufferev_;
+	std::weak_ptr<bufferevent> bufferev_weak_;
 
 	bool shutdown_;
 	void * data_;
@@ -58,7 +58,7 @@ private:
 	/*
 	 *	网络服务关闭订阅者;
 	 */
-	xenon::util_boost::CEventListener net_shutdown_listener_;
+	dios::util::CEventListener net_shutdown_listener_;
 	CNetService* net_service_impl_;
 	
 	std::string local_ip_;

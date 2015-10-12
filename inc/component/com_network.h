@@ -1,83 +1,95 @@
-#ifndef __COM_NETWORK_H___
-#define __COM_NETWORK_H___
+#ifndef _____NET_SERVICE_H_________
+#define _____NET_SERVICE_H_________
 
 #include "dios/platform.h"
+#include "dios_com/dios_com.h"
 
-NS_DS_BEGIN 
-namespace com{
-	class IConnectorSink;
+namespace dios{
 
-	struct EndPoint{
-		std::string ip;
-		ds_uint32 port;
-	};
+	namespace com{
 
-	/*
-	 *	由INetWorkContext创建产生
-	 */
-	class IConnector : public std::enable_shared_from_this<IConnector>
-	{
-	public:
-		typedef std::shared_ptr<IConnector> Ptr;
-		typedef std::weak_ptr<IConnector> WeakPtr;
+		class IConnectorSink;
 
-		virtual ~IConnector() {}
+		/*
+		*	由INetworkContext创建产生
+		*/
+		class IConnector : public std::enable_shared_from_this<IConnector>
+		{
+		public:
+			typedef std::shared_ptr<IConnector> Ptr;
+			typedef std::weak_ptr<IConnector> WeakPtr;
 
-		// 链接基本操作;
-		virtual bool Connect(const string& remote_ip, ds_uint32 remote_port, IConnectorSink* sink)
+			virtual ~IConnector() {}
+
+			// 基本操作;
 			virtual bool Send(const void * buffer, unsigned int size) = 0;
-		virtual void Shutdown(void) = 0;
-
-		// 基本网络信息;
-		virtual const EndPoint& local() = 0;
-		virtual const EndPoint& remote() = 0;
-		virtual IConnectorSink* sink() = 0;
-	};
-
-	// 事件接收器;
-	class IConnectorSink
-	{
-	public:
-		virtual void OnConnect(const IConnector::Ptr&) = 0;
-		virtual void OnRecv(const IConnector::Ptr&, void* buffer, ds_uint32 size) = 0;
-		virtual void OnDisconnect(const IConnector::Ptr&) = 0;
-
-		virtual IConnectorSink* Clone() = 0;
-		virtual void Release() = 0;
-	};
-
-	class IAcceptor : public std::enable_shared_from_this<IServer>
-	{
-	public:
-		typedef std::shared_ptr<IServer> Ptr;
-
-		virtual ~IAcceptor() {}
-
-		// 监听器基本操作;
-		virtual void Listen(const string& local_ip, ds_uint32 local_port, IConnectorSink* sink)
 			virtual void Shutdown(void) = 0;
-		virtual const EndPoint& local() = 0;
-	};
 
-	class INetworkContext : public ICom
-	{
-	public:
-		typedef std::shared_ptr<INetworkContext> Ptr;
-		typedef std::weak_ptr<INetworkContext> WeakPtr;
+			/*
+			*	基本网络信息;
+			*/
+			virtual std::string local_ip() = 0;
+			virtual int local_port() = 0;
+			virtual std::string remote_ip() = 0;
+			virtual int remote_port() = 0;
+		};
 
-		virtual ~INetworkContext(void)	{}
+		/*
+		*	由INetworkContext创建产生
+		*/
+		class IServer : public std::enable_shared_from_this<IServer>
+		{
+		public:
+			typedef std::shared_ptr<IServer> Ptr;
 
-		virtual bool Initialize(void) = 0;
-		virtual bool Shutdown(void) = 0;
+			virtual ~IServer() {}
 
-		virtual IConnector::Ptr MakeConnector() = 0;
-		virtual IAcceptor::Ptr MakeAcceptor() = 0;
+			/*
+			*	关闭服务器;
+			*/
+			virtual void Shutdown(void) = 0;
 
-		// 基本参数设置;
-		virtual void SetUnitRecvSize(ds_uint32 unit_recv_size);
-	};
+			/*
+			*	基本信息;
+			*/
+			virtual std::string local_ip() = 0;
+			virtual int local_port() = 0;
+		};
+
+		class INetworkContext : public ICom
+		{
+		public:
+			typedef std::shared_ptr<INetworkContext> Ptr;
+			typedef std::weak_ptr<INetworkContext> WeakPtr;
+			virtual ~INetworkContext(void)	{}
+
+			virtual bool Initialize(unsigned int recv_size) = 0;
+			virtual bool Shutdown(void) = 0;
+
+			/*
+			*	服务端监听，有连接进来时调用AcceptCallback
+			*/
+			virtual IServer::Ptr Listen(const char * local_ip, int local_port, IConnectorSink* sink) = 0;
+
+			/*
+			*	客户端连接，连接成功时调用AcceptCallback
+			*/
+			virtual IConnector::Ptr	Connect(const char * remote_ip, int remote_port, IConnectorSink* sink) = 0;
+		};
+
+		// 事件接收器;
+		class IConnectorSink
+		{
+		public:
+			virtual void OnConnect(const IConnector::Ptr&) = 0;
+			virtual void OnRecv(const IConnector::Ptr&, const void* buffer, unsigned int size) = 0;
+			virtual void OnDisconnect(const IConnector::Ptr&) = 0;
+
+			virtual IConnectorSink* Clone() = 0;
+			virtual void Release() = 0;
+		};
+	}
 }
 
-NS_DS_END
 
 #endif

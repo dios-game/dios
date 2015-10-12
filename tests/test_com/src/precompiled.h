@@ -3,4 +3,6 @@
 
 #include "dios/platform.h"
 
+#include "dios_com/dios_com.h"
+
 #endif

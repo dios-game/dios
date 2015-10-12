@@ -14,11 +14,13 @@
 dios_register_regist_module(lib ${CMAKE_CURRENT_LIST_DIR}/templates/lib)
 dios_register_regist_module(libfoo ${CMAKE_CURRENT_LIST_DIR}/tests/libfoo)
 dios_register_regist_module(dios_util ${CMAKE_CURRENT_LIST_DIR}/src/libs/dios_util)
+dios_register_regist_module(dios_util_boost ${CMAKE_CURRENT_LIST_DIR}/src/libs/dios_util_boost)
 dios_register_regist_module(dios_com ${CMAKE_CURRENT_LIST_DIR}/src/libs/dios_com)
 dios_register_regist_module(crash_handler ${CMAKE_CURRENT_LIST_DIR}/src/libs/crash_handler)
 
 # 插件;
 dios_register_regist_module(log_log4cplus ${CMAKE_CURRENT_LIST_DIR}/src/plugins/log_log4cplus)
+dios_register_regist_module(network_libevent ${CMAKE_CURRENT_LIST_DIR}/src/plugins/network_libevent)
 
 # 第三方;
 dios_register_regist_module(boost ${CMAKE_CURRENT_LIST_DIR}/src/oslibs/boost 

@@ -29,6 +29,12 @@
 
 #include "component/com_network.h"
 
+#include "dios_util/util_log.h"
+#include "dios_util/util_event_set.hpp"
+#include "dios_util_boost/util_boost_tls_buffer.h"
+
+#include "boost/thread.hpp"
+
 using namespace dios::com;
 
 #endif

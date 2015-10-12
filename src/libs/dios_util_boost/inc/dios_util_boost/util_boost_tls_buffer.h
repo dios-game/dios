@@ -4,6 +4,8 @@
 
 #include "dios_util_boost_lib.h"
 
+#include "boost/thread.hpp"
+
 NS_DS_BEGIN
 NS_UTIL_BOOST_BEGIN
 
@@ -14,21 +16,21 @@ public:
 	CTlsBuffer(unsigned int default_size);
 	~CTlsBuffer(void);
 
-	// 设置默认缓存大小
+	// 设置默认缓存大小;
 	void set_default_size(unsigned int default_size);
 
-	// 获取包缓存（默认/当前）
+	// 获取包缓存（默认/当前）;
 	std::string* GetBuffer(void);
 
-	// 获取包缓存（动态）
+	// 获取包缓存（动态）;
 	char* GetBuffer(unsigned int size);
 
 private:
 
-	// 默认缓存大小
+	// 默认缓存大小;
 	unsigned int default_size_;
 
-	// TLS包缓存
+	// TLS包缓存 ;
 	boost::thread_specific_ptr<std::string> tls_buffer_;
 };
 

@@ -38,8 +38,8 @@ pause
 exit
 
 :cmDone
-cmake -P DIOS_cmake_compile_succeeded.cmake
-cmake -P DIOS_cmake_install_succeeded.cmake
+cmake -P dios_cmake_compile_succeeded.cmake
+cmake -P dios_cmake_install_succeeded.cmake
 cd /d %ocd%
 
 @echo on
@@ -47,3 +47,4 @@ cd /d %ocd%
 goto :eof
 :GET_PATH_NAME
 set PATH_NAME=%~n1
+:eof
