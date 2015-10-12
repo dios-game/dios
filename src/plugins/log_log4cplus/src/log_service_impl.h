@@ -9,7 +9,7 @@ public:
 
 	virtual bool Initialize( const std::string& log_config );	
 	virtual void Shutdown( void );	
-	virtual dios::log::ILog::Ptr CreateLog( const std::string& log_name );
+	virtual dios::com::ILog::Ptr CreateLog( const std::string& log_name );
 
 	virtual void NDC_Push(const char* ndc, ...);
 	virtual void NDC_Pop();

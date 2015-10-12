@@ -14,6 +14,6 @@
 
 #include "component/com_log.h"
 
-using namespace dios::log;
+using namespace dios::com;
 
 #endif

@@ -50,7 +50,7 @@ MACRO(dios_config_module_init MODULE)
 	
 	# dios_module_link_library(${MODULE} lib false)
 	# dios_module_link_library(${MODULE} foo false)
-	dios_module_link_library(${MODULE} dios_util false)
+	# dios_module_link_library(${MODULE} dios_util false)
 	dios_module_link_library(${MODULE} dios_com false)
 	# dios_module_link_library(${MODULE} lua false)
 	# dios_module_link_library(${MODULE} tolua false)

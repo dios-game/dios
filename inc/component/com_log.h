@@ -4,7 +4,7 @@
 #include "dios_com/dios_com.h"
 
 namespace dios{
-	namespace log{
+	namespace com{
 		enum LogLevel{
 			LOG_LEVEL_TRACE,  
 			LOG_LEVEL_DEBUG,  

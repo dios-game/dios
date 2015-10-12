@@ -22,7 +22,7 @@ enum LogColor
 	COLOR_MAX,
 };
 
-class CLogImpl:public dios::log::ILog
+class CLogImpl:public dios::com::ILog
 {
 
 public:

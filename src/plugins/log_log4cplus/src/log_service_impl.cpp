@@ -42,7 +42,7 @@ void CLogServiceImpl::Shutdown( void )
 	}
 }
 
-dios::log::ILog::Ptr CLogServiceImpl::CreateLog( const std::string& log_name )
+dios::com::ILog::Ptr CLogServiceImpl::CreateLog( const std::string& log_name )
 {
 	return CLogImpl::Ptr(new CLogImpl(shared_from_this(), log_name));
 }

@@ -27,19 +27,8 @@
 #include "pthread/pthread.h"
 #endif
 
-// #include "boost/thread/condition.hpp"
-// #include "boost/thread/mutex.hpp"
-// #include "boost/signals2.hpp"
-// #include "boost/thread/shared_mutex.hpp"
-// #include "boost/thread/locks.hpp"
-// #include "boost/signals2.hpp"
-// 
-// #include "dios_util_boost/util_boost_tls_buffer.h"
-// #include "dios_util_boost/util_boost_event_set.hpp"
+#include "component/com_network.h"
 
-#include "component/net_service.h"
-// #include "dios_util_component/util_component_log.h"
-
-using namespace Foundation::NetService;
+using namespace dios::com;
 
 #endif
