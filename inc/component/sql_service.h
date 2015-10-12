@@ -1,7 +1,8 @@
 #ifndef _____SQL_SERVICE_H_________
 #define _____SQL_SERVICE_H_________
 
-#include "component_service/component_service.h"
+#include "dios_util/dios_util_lib.h"
+#include "dios_com/component_service.h"
 
 #include "log_service.h"
 
