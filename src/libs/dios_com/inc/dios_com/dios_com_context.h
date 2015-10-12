@@ -15,7 +15,6 @@ class CDynamicLib;
 class CDynamicPlugins;
 class CComFactories;
 
-namespace detail{
 	class DIOS_COM_DECL CComContext{
 
 	public:
@@ -80,10 +79,9 @@ namespace detail{
 			return std::shared_ptr<InterfaceType>();
 		}
 	};
-}
 
 NS_DS_END
 
-#define sComContext dios::detail::CComContext::GetInstancePtr()
+#define sComContext dios::CComContext::GetInstancePtr()
 
 #endif // __DIOS_COM_CONTEXT_H__

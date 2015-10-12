@@ -5,7 +5,6 @@
 #include "dios_util/util_log.h"
 
 NS_DS_BEGIN
-namespace detail{
 
 	CComContext::CComContext() :factories_(new dios::CComFactories), plugins_(new CDynamicPlugins)
 	{
@@ -48,6 +47,5 @@ namespace detail{
 			return factories_->CreateCom(com_id);
 		return ICom::Ptr();
 	}
-}
 
 NS_DS_END

@@ -17,6 +17,9 @@ dios_register_regist_module(dios_util ${CMAKE_CURRENT_LIST_DIR}/src/libs/dios_ut
 dios_register_regist_module(dios_com ${CMAKE_CURRENT_LIST_DIR}/src/libs/dios_com)
 dios_register_regist_module(crash_handler ${CMAKE_CURRENT_LIST_DIR}/src/libs/crash_handler)
 
+# 插件;
+dios_register_regist_module(log_log4cplus ${CMAKE_CURRENT_LIST_DIR}/src/plugins/log_log4cplus)
+
 # 第三方;
 dios_register_regist_module(boost ${CMAKE_CURRENT_LIST_DIR}/src/oslibs/boost 
 	boost_atomic
