@@ -11,15 +11,15 @@ void OnAccepted(struct evconnlistener* linstener, evutil_socket_t acceptSocket, 
 	CServer* server = (CServer*)ptr;
 	
 	if(server->will_to_shutdown()) {
-#ifdef DIOS_PLATFORM_WIN32
+#ifdef DS_PLATFORM_WIN32
 		closesocket(acceptSocket);
 #else
 		close(acceptSocket);
-#endif // DIOS_PLATFORM_WIN32
+#endif // DS_PLATFORM_WIN32
 		server->ShutdownReal();
 	}
 	else {
-		CConnector::Ptr ptr(new CConnector(server->net_service_impl()->shared_from_this(), server->net_service_impl()));
+		CConnector::Ptr ptr(new CConnector(server->net_service_impl()));
 		ptr->Init(acceptSocket, server->sink_clone(), addr);
 	}
 }
@@ -27,11 +27,11 @@ void OnAccepted(struct evconnlistener* linstener, evutil_socket_t acceptSocket, 
 void OnAcceptError(struct evconnlistener* linstener, void *ptr)
 {
 	CServer * server = (CServer*)ptr;
-	DIOS_COMPONENT_LOG(DIOS_COMPONENT_LOG_LEVEL_ERROR, "OnAcceptError Appear.");
+	sLogError("OnAcceptError Appear.");
 //	server->ShutdownReal();
 }
 
-CServer::CServer(IComponent::Ptr component_depend, CNetService* net_service_impl):IServer(component_depend),net_service_impl_(net_service_impl)
+CServer::CServer(CNetService* net_service_impl):net_service_impl_(net_service_impl)
 {
 	evconn_listener_ = 0;
 	will_to_shutdown_ = false;
@@ -50,8 +50,6 @@ CServer::~CServer( void ) {
 bool CServer::Init( const char * ip, unsigned int port, IConnectorSink* sink ) {
 	
 	//	request socket
-	DIOS_NDC("CServer::Init");
-
 	net_shutdown_listener_ = net_service_impl_->RegisterShutdownEventListener(boost::bind(&IServer::Shutdown, shared_from_this()));
 	sink_ = sink;
 
@@ -71,14 +69,14 @@ bool CServer::Init( const char * ip, unsigned int port, IConnectorSink* sink ) {
 
 	if(evconn_listener_ == 0) {
 		net_shutdown_listener_.Disconnect();
-		DIOS_COMPONENT_LOG(DIOS_COMPONENT_LOG_LEVEL_ERROR, "server(%s:%d) evconnlistener_new_bind failed.", ip, port);
+		sLogError("server(%s:%d) evconnlistener_new_bind failed.", ip, port);
 		return false;
 	}
 
 	evconnlistener_set_error_cb(evconn_listener_, OnAcceptError);
 	local_ip_ = ip;
 	local_port_ = port;
-	DIOS_COMPONENT_LOG(DIOS_COMPONENT_LOG_LEVEL_INFO, "server(%s:%d) start", local_ip_.c_str(), local_port_);
+	sLogInfo("server(%s:%d) start", local_ip_.c_str(), local_port_);
 	return true;
 }
 
@@ -104,8 +102,7 @@ int CServer::local_port()
 void CServer::ShutdownReal()
 {
 	IServer::Ptr ref = shared_from_this();
-	DIOS_NDC("CServer::ShutdownReal");
-	DIOS_COMPONENT_LOG(DIOS_COMPONENT_LOG_LEVEL_INFO, "server(%s:%d) shutdown", local_ip_.c_str(), local_port_);
+	sLogInfo("server(%s:%d) shutdown", local_ip_.c_str(), local_port_);
 	evconnlistener_free(evconn_listener_);
 	net_shutdown_listener_.Disconnect();
 }

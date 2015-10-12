@@ -1,0 +1,8 @@
+#ifndef ___PRECOMPILED_H_____
+#define ___PRECOMPILED_H_____
+
+#include "dios/platform.h"
+
+#include "dios_com/dios_com.h"
+
+#endif

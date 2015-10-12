@@ -1,7 +1,7 @@
 #ifndef _____LOG_SERVICE_H_________
 #define _____LOG_SERVICE_H_________
 
-#include "component_service/component_service.h"
+#include "dios_com/dios_com.h"
 
 namespace Foundation{
 
@@ -20,7 +20,7 @@ namespace Foundation{
 		{
 		public:
 			typedef boost::shared_ptr<ILog> Ptr;
-			ILog(IComponent::Ptr component_depend):component_depend_(component_depend) {}
+			ILog(dios::ICom::Ptr component_depend):component_depend_(component_depend) {}
 			virtual ~ILog( void ) {}
 
 			/*
@@ -51,7 +51,7 @@ namespace Foundation{
 			/*
 			 *	潜规则：由组件创建产生给应用层使用的对象，该对象必须引用该组件。
 			 */
-			IComponent::Ptr component_depend_; 
+			dios::ICom::Ptr component_depend_; 
 
 		};
 

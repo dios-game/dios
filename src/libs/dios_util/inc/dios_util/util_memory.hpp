@@ -31,6 +31,7 @@ NS_UTIL_BEGIN
 
 class CMemory{
 
+public:
 	template <typename Derived, typename Base>
 	static std::shared_ptr<Derived> DynamicCast(const std::shared_ptr<Base>& base_ptr){
 		Derived* derived_pt = dynamic_cast<Derived*>(base_ptr.get());

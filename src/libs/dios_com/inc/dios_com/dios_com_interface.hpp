@@ -20,7 +20,7 @@ namespace dios{
 	public:
 		template<class InterfaceType>
 		std::shared_ptr<InterfaceType> QueryInterface(){
-			return dios::DynamicCast<InterfaceType>(shared_from_this());
+			return dios::util::CMemory::DynamicCast<InterfaceType>(shared_from_this());
 		}
 	};
 };

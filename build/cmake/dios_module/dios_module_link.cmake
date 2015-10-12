@@ -45,6 +45,7 @@ ENDMACRO()
 # 
 MACRO(_dios_module_link_inherit MODULE )	# 	
 
+	_dios_module_link_inherit_from_module_list(${MODULE} ${DIOS_MODULE_${MODULE}_IMPORT_LIBRIRY_LIST})
 	_dios_module_link_inherit_from_module_list(${MODULE} ${DIOS_MODULE_${MODULE}_IMPORT_INHERIT_LIBRIRY_LIST})
 
 ENDMACRO()

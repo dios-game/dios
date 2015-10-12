@@ -16,30 +16,25 @@
 
 #include "dios/platform.h"
 
-#ifndef DIOS_PLATFORM_WIN32
+#ifndef DS_PLATFORM_WIN32
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <sys/socket.h>
 #endif
 
 //	pthread;
-#ifdef DIOS_PLATFORM_WIN32
+#ifdef DS_PLATFORM_WIN32
 #include "pthread/pthread.h"
 #endif
 
-// #include "boost/thread/condition.hpp"
-// #include "boost/thread/mutex.hpp"
-// #include "boost/signals2.hpp"
-// #include "boost/thread/shared_mutex.hpp"
-// #include "boost/thread/locks.hpp"
-// #include "boost/signals2.hpp"
-// 
-// #include "dios_util_boost/util_boost_tls_buffer.h"
-// #include "dios_util_boost/util_boost_event_set.hpp"
+#include "component/com_network.h"
 
-#include "component/net_service.h"
-// #include "dios_util_component/util_component_log.h"
+#include "dios_util/util_log.h"
+#include "dios_util/util_event_set.hpp"
+#include "dios_util_boost/util_boost_tls_buffer.h"
 
-using namespace Foundation::NetService;
+#include "boost/thread.hpp"
+
+using namespace dios::com;
 
 #endif

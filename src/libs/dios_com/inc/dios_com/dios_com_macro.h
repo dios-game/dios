@@ -29,9 +29,9 @@ PLUGIN_EXPORT(plugin_name){
 
 #define PLUGIN_EXPORT(plugin_name)		\
 extern "C" {								\
-	_PLUGIN_DLL_DECL void  DllPlugin(boost::shared_ptr<CDynamicLib>&);\
+	_PLUGIN_DLL_DECL void  DllPlugin(std::shared_ptr<dios::CDynamicLib>&);\
 };											\
-extern "C" void  DllPlugin(boost::shared_ptr<CDynamicLib>& dyn_lib_ptr)
+	extern "C" void  DllPlugin(std::shared_ptr<dios::CDynamicLib>& dyn_lib_ptr)
 
 #define PLUGIN_EXPORT_COM(com_name,class_com)	 sComContext->AddFactory<class_com>( com_name, dyn_lib_ptr );
 
