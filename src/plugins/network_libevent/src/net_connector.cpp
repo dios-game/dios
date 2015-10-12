@@ -48,7 +48,7 @@ void onError( struct bufferevent * bev, short what, void * ctx ) {
 	connector->ShutDownImmediately();
 }
 
-CConnector::CConnector( IComponent::Ptr component_depend, CNetService* net_service_impl ):IConnector(component_depend), net_service_impl_(net_service_impl) {
+CConnector::CConnector( ICom::Ptr component_depend, CNetService* net_service_impl ):IConnector(component_depend), net_service_impl_(net_service_impl) {
 	// bufferev_ = 0;
 	shutdown_ = false;
 	data_ = 0;

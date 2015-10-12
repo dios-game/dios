@@ -16,14 +16,14 @@
 
 #include "dios/platform.h"
 
-#ifndef DIOS_PLATFORM_WIN32
+#ifndef DS_PLATFORM_WIN32
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <sys/socket.h>
 #endif
 
 //	pthread;
-#ifdef DIOS_PLATFORM_WIN32
+#ifdef DS_PLATFORM_WIN32
 #include "pthread/pthread.h"
 #endif
 

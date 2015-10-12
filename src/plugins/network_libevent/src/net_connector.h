@@ -7,7 +7,7 @@ class CConnector : public IConnector
 public:
 	typedef boost::shared_ptr<CConnector> Ptr;
 
-	CConnector(IComponent::Ptr component_depend, CNetService* net_service_impl);
+	CConnector(ICom::Ptr component_depend, CNetService* net_service_impl);
 	~CConnector(void);
 
 

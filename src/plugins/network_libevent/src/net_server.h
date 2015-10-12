@@ -7,7 +7,7 @@ class CServer:public IServer
 public:
 	typedef boost::shared_ptr<CServer> Ptr;
 
-	CServer( IComponent::Ptr component_depend, CNetService* net_service_impl );
+	CServer( ICom::Ptr component_depend, CNetService* net_service_impl );
 	~CServer(void);
 
 	bool Init(const char * ip, unsigned int port, IConnectorSink* sink );

@@ -29,6 +29,7 @@ if not exist %LIB_VERSION_NAME% (
 	%DIOS_TOOLS%\7za.exe x -y %LIB_VERSION_NAME%.tar.bz2
 	%DIOS_TOOLS%\7za.exe x -y %LIB_VERSION_NAME%.tar
 	del %LIB_VERSION_NAME%.tar /Q
+	xcopy /y /s patch\* %LIBEVENT_VERSION_NAME%\
 	)
 	
 xcopy /y /s patch\* %LIB_VERSION_NAME%\

@@ -1,7 +1,7 @@
 
 
-set(DIOS_CONFIG_TEMPLATE lib)
-SET(DIOS_CONFIG_MODULE log_log4cplus) 
+set(DIOS_CONFIG_TEMPLATE console)
+SET(DIOS_CONFIG_MODULE test_com) 
 
 
 # 
@@ -18,8 +18,8 @@ MACRO(dios_config_module_init MODULE)
 	
 
 	# 模块类型变量; app(APPLICATION); lib(STATIC, SHARED);
-	SET(DIOS_MODULE_${MODULE}_TYPE SHARED) # default  pc mac
-	SET(DIOS_MODULE_${MODULE}_ANDROID_TYPE STATIC)
+	SET(DIOS_MODULE_${MODULE}_TYPE APPLICATION) # default  pc mac
+	SET(DIOS_MODULE_${MODULE}_ANDROID_TYPE SHARED)
 	SET(DIOS_MODULE_${MODULE}_IOS_TYPE STATIC) # can only build static library on ios
 
 	# 模块版本;
@@ -50,8 +50,8 @@ MACRO(dios_config_module_init MODULE)
 	
 	# dios_module_link_library(${MODULE} lib false)
 	# dios_module_link_library(${MODULE} libfoo false)
-	dios_module_link_library(${MODULE} dios_util false)
-	dios_module_link_library(${MODULE} dios_com false)
+	# dios_module_link_library(${MODULE} dios_util false)
+	# dios_module_link_library(${MODULE} dios_com false)
 	IF(DIOS_CMAKE_PLATFORM_WIN32 OR DIOS_CMAKE_PLATFORM_WIN64)
 	# dios_module_link_library(${MODULE} crash_handler false)
 	ENDIF()
@@ -69,7 +69,7 @@ MACRO(dios_config_module_init MODULE)
 	# dios_module_link_library(${MODULE} protobuf false)
 	# dios_module_link_library(${MODULE} lua false)
 	# dios_module_link_library(${MODULE} tolua false)
-	dios_module_link_library(${MODULE} log4cplus false)
+	# dios_module_link_library(${MODULE} log4cplus false)
 	# dios_module_link_library(${MODULE} libmysql false)
 	# dios_module_link_library(${MODULE} libevent false)
 	# dios_module_link_library(${MODULE} google_breakpad false)
@@ -79,12 +79,11 @@ MACRO(dios_config_module_init MODULE)
 	# dios_module_link_library(${MODULE} pbc false)
 	# dios_module_link_library(${MODULE} pthread false)
 	# dios_module_link_library(${MODULE} dl false)
-	dios_module_link_library(${MODULE} socket false)
+	# dios_module_link_library(${MODULE} socket false)
 	# dios_module_link_library(${MODULE} xml2 false)
 	# dios_module_link_library(${MODULE} z false)
 	# dios_module_link_library(${MODULE} inet false)
 	# dios_module_link_library(${MODULE} vld false)
-
 
 ENDMACRO()
 
@@ -117,6 +116,9 @@ MACRO(dios_config_module_pre_build)
 	# 
 	# SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /subsystem:windows")
 	# 
+	IF(DIOS_CMAKE_PLATFORM_WIN32 OR DIOS_CMAKE_PLATFORM_WIN64)
+		# SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /subsystem:windows")
+	ENDIF()
 
 ENDMACRO()
 
@@ -129,5 +131,11 @@ MACRO(dios_config_module_post_build)
 	# 添加target后的事件
 	# dios_module_add_libraries(<module> <librariy...>)
 	# 
-
+	IF(DIOS_CMAKE_PLATFORM_WIN32 OR DIOS_CMAKE_PLATFORM_WIN64)
+		create_target_launcher(${DIOS_BUILDER_MODULE} 
+			WORKING_DIRECTORY "$(ProjectDir)"
+			LAUNCHER_DIRECTORY ${CMAKE_BINARY_DIR}/output
+			LAUNCHER ${DIOS_BUILDER_MODULE}.exe
+			)
+	ENDIF()
 ENDMACRO()

@@ -31,7 +31,7 @@ void OnAcceptError(struct evconnlistener* linstener, void *ptr)
 //	server->ShutdownReal();
 }
 
-CServer::CServer(IComponent::Ptr component_depend, CNetService* net_service_impl):IServer(component_depend),net_service_impl_(net_service_impl)
+CServer::CServer(ICom::Ptr component_depend, CNetService* net_service_impl):IServer(component_depend),net_service_impl_(net_service_impl)
 {
 	evconn_listener_ = 0;
 	will_to_shutdown_ = false;

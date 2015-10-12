@@ -1,12 +1,10 @@
-#ifndef _____LOG_SERVICE_H_________
-#define _____LOG_SERVICE_H_________
+#ifndef _____COM_LOG_H_________
+#define _____COM_LOG_H_________
 
 #include "dios_com/dios_com.h"
 
-namespace Foundation{
-
-	namespace LogService
-	{
+namespace dios{
+	namespace log{
 		enum LogLevel{
 			LOG_LEVEL_TRACE,  
 			LOG_LEVEL_DEBUG,  
@@ -19,12 +17,12 @@ namespace Foundation{
 		class ILog
 		{
 		public:
-			typedef boost::shared_ptr<ILog> Ptr;
-			ILog(dios::ICom::Ptr component_depend):component_depend_(component_depend) {}
+			typedef std::shared_ptr<ILog> Ptr;
+			ILog(){}
 			virtual ~ILog( void ) {}
 
 			/*
-			 *	日志记录
+			 *	日志记录;
 			 */
 			virtual void Output(int level, const char* msg, ...) = 0;
 			virtual void Output(const char* msg, ...) = 0; // level=LOG_LEVEL_INFO
@@ -38,7 +36,7 @@ namespace Foundation{
 			virtual void NDC_Pop() = 0;
 
 			/*
-			 *	具体输出函数
+			 *	具体输出函数;
 			 */
 			virtual void Fatal(const char* szMsg, ...) = 0;
 			virtual void Error(const char* szMsg, ...) = 0;
@@ -46,21 +44,14 @@ namespace Foundation{
 			virtual void Info (const char* szMsg, ...) = 0;
 			virtual void Debug(const char* szMsg, ...) = 0;
 			virtual void Trace(const char* szMsg, ...) = 0;
-
-		protected:
-			/*
-			 *	潜规则：由组件创建产生给应用层使用的对象，该对象必须引用该组件。
-			 */
-			dios::ICom::Ptr component_depend_; 
-
 		};
 
-		class ILogService:public IComponent
+		class ILogContext:public ICom
 		{
 		public:
-			typedef boost::shared_ptr<ILogService> Ptr;
+			typedef std::shared_ptr<ILogContext> Ptr;
 
-			virtual ~ILogService(){}
+			virtual ~ILogContext(){}
 
 			virtual bool Initialize( const std::string& log_config ) = 0;	
 			virtual void Shutdown( void ) = 0;	
