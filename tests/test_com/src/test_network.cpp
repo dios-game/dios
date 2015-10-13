@@ -36,7 +36,7 @@ public:
 	}
 	virtual void OnRecv(const dios::com::IConnector::Ptr& connector, const void* buffer, unsigned int size){
 		sLogInfo("client recv: %s", (char*)buffer);
-		connector->Send(buffer, size);
+		// connector->Send(buffer, size);
 	}
 	virtual void OnDisconnect(const dios::com::IConnector::Ptr& connector){
 		sLogInfo("client connector disconnect");
@@ -88,6 +88,7 @@ void InitLog(){
 void TestNetwork(){
 	InitLog();
 
+	sLogInfo("TestNetwork start");
 	sComContext->LoadPlugin("network_libevent");
 
 	dios::com::INetworkContext::Ptr context = sComContext->CreateCom<dios::com::INetworkContext>("network_libevent");
