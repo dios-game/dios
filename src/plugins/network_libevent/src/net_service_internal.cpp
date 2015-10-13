@@ -198,7 +198,7 @@ IConnector::Ptr	CNetService::Connect( const char * remote_ip, int remote_port, I
 }
 
 
-dios::util::CEventListener CNetService::RegisterShutdownEventListener(boost::function<void()> func)
+dios::util::CEventListener CNetService::RegisterShutdownEventListener(std::function<void()> func)
 {
 	return net_shutdown_event_.Connect( func );
 }

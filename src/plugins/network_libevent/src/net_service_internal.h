@@ -23,7 +23,7 @@ public:
 	// get ev_token_bucket_cfg;
 	inline ev_token_bucket_cfg * ev_t_bucket_cfg(void) { return ev_t_bucket_cfg_; }
 
-	dios::util::CEventListener RegisterShutdownEventListener(boost::function<void()> func);
+	dios::util::CEventListener RegisterShutdownEventListener(std::function<void()> func);
 
 	//	recv size
 	std::string* recv_buffer(void);

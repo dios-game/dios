@@ -39,7 +39,7 @@ void onError( struct bufferevent * bev, short what, void * ctx ) {
 
 	CConnector * connector = (CConnector*)ctx;
 	sLogTrace("[what: %d connector(%s:%d)]", what, connector->remote_ip().c_str(), connector->remote_port());
-	connector->ShutDownImmediately();
+	connector->ShutdownImmediately();
 }
 
 CConnector::CConnector( CNetService* net_service_impl ):net_service_impl_(net_service_impl) {
@@ -139,7 +139,7 @@ void CConnector::Shutdown( void ) {
 
 }
 
-void CConnector::ShutDownImmediately( void ) {
+void CConnector::ShutdownImmediately( void ) {
 	
 	IConnector::Ptr ref = shared_from_this();
 
