@@ -242,6 +242,6 @@ private:
 
 NS_DS_END
 
-#define sDatabaseCustomHelper CDatabaseCustomHelper::GetInstancePtr()
+#define sDatabaseCustomHelper dios::CDatabaseCustomHelper::GetInstancePtr()
 
 #endif

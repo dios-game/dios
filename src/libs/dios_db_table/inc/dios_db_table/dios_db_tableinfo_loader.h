@@ -31,6 +31,6 @@ public:
 
 NS_DS_END
 
-#define sDatabaseTableLoader CDatabaseTableLoader::GetInstancePtr()
+#define sDatabaseTableInfoLoader dios::CDatabaseTableInfoLoader::GetInstancePtr()
 
 #endif

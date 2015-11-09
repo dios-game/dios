@@ -40,6 +40,6 @@ private:
 
 NS_DS_END
 
-#define sDatabaseTableCreator CDatabaseTableCreator::GetInstancePtr()
+#define sDatabaseTableCreator dios::CDatabaseTableCreator::GetInstancePtr()
 
 #endif

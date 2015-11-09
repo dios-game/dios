@@ -145,7 +145,7 @@ CDatabaseIndexInfo CDatabaseTableInfo::GetPrimaryKey( void )
 	return key;
 }
 
-std::string CDatabaseTableInfo::CalcMD5( void )
+std::string CDatabaseTableInfo::CalcMD5( void ) const
 {
 	std::string table_text;
 

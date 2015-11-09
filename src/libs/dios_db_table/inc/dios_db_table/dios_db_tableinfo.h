@@ -19,18 +19,19 @@ NS_DS_BEGIN
  */
 enum DatabaseColType
 {
-	DATABASE_COL_TYPE_NULL,
-	DATABASE_COL_TYPE_SMALL_INT,				//	smallint;
-	DATABASE_COL_TYPE_UNSIGNED_SMALL_INT,		//	word;
-	DATABASE_COL_TYPE_INT,					//	int;
-	DATABASE_COL_TYPE_UNSIGNED_INT,			//	dword;
-	DATABASE_COL_TYPE_INT64,					//	int64;
-	DATABASE_COL_TYPE_FLOAT,					//	float;
-	DATABASE_COL_TYPE_STRING,					//	string;
-	DATABASE_COL_TYPE_BLOB,					//	blob;
-	DATABASE_COL_TYPE_UUID,					//	uuid;
-	DATABASE_COL_TYPE_CHAR,					//	char;
-	DATABASE_COL_TYPE_MAX,
+	kDatabaseColTypeNil,
+	kDatabaseColTypeSmallInt,
+	kDatabaseColTypeUnsignedSmallInt,
+	kDatabaseColTypeInt,
+	kDatabaseColTypeUnsignedInt,
+	kDatabaseColTypeInt64,
+	kDatabaseColTypeFloat,
+	kDatabaseColTypeString,
+	kDatabaseColTypeBlob,
+	kDatabaseColTypeUuid,
+	kDatabaseColTypeChar,
+
+	kDatabaseColTypeMax,
 };
 
 class CDatabaseTableInfo;
@@ -116,7 +117,7 @@ public:
 	CDatabaseIndexInfo GetPrimaryKey(void);
 
 	// 获取MD5;
-	std::string CalcMD5(void);
+	std::string CalcMD5(void) const;
 
 	DS_PROPERTY_PASS_BY_REF(std::string, name); // 名称;
 	DS_REF_PROPERTY(CDatabaseColInfoVector, col_info_vector); // 字段声明;

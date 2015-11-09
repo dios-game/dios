@@ -19,19 +19,19 @@ struct RecordColTypeInfo {
 };
 
 // 字段类型信息声明;
-static RecordColTypeInfo DATABASE_COL_TYPE_info[DATABASE_COL_TYPE_MAX] = {
+static RecordColTypeInfo database_col_info[kDatabaseColTypeMax] = {
 
-	{ DATABASE_COL_TYPE_SMALL_INT, "null", 0, 0, false },
-	{ DATABASE_COL_TYPE_SMALL_INT, "smallint", 6, 0, false },
-	{ DATABASE_COL_TYPE_UNSIGNED_SMALL_INT, "smallint", 5, 0, true },
-	{ DATABASE_COL_TYPE_INT, "int", 11, 0, false },
-	{ DATABASE_COL_TYPE_UNSIGNED_INT, "int", 10, 0, true },
-	{ DATABASE_COL_TYPE_INT64, "bigint", 19, 0, false },
-	{ DATABASE_COL_TYPE_FLOAT, "float", 12, 0, false },
-	{ DATABASE_COL_TYPE_STRING, "varchar", 0, 0, false },
-	{ DATABASE_COL_TYPE_BLOB, "blob", 0, 0, false },
-	{ DATABASE_COL_TYPE_UUID, "varchar", 0, 36, false },
-	{ DATABASE_COL_TYPE_CHAR, "char", 1, 0, false },
+	{ kDatabaseColTypeNil, "null", 0, 0, false },
+	{ kDatabaseColTypeSmallInt, "smallint", 6, 0, false },
+	{ kDatabaseColTypeUnsignedSmallInt, "smallint", 5, 0, true },
+	{ kDatabaseColTypeInt, "int", 11, 0, false },
+	{ kDatabaseColTypeUnsignedSmallInt, "int", 10, 0, true },
+	{ kDatabaseColTypeInt64, "bigint", 19, 0, false },
+	{ kDatabaseColTypeFloat, "float", 12, 0, false },
+	{ kDatabaseColTypeString, "varchar", 0, 0, false },
+	{ kDatabaseColTypeBlob, "blob", 0, 0, false },
+	{ kDatabaseColTypeUuid, "varchar", 0, 36, false },
+	{ kDatabaseColTypeChar, "char", 1, 0, false },
 };
 
 ds_boolean CDatabaseTableCreator::CreateTable( com::ISqlConnector::Ptr sql_connector, const CDatabaseTableInfo& table_info ) 
@@ -94,24 +94,24 @@ ds_boolean CDatabaseTableCreator::_CreateCol( com::ISqlConnector::Ptr sql_connec
 
 		// 组织类型字符串;
 		ds_uint32 col_size = 0;
-		if(DATABASE_COL_TYPE_info[col_type].data_num_lenth) {
-			col_size = DATABASE_COL_TYPE_info[col_type].data_num_lenth;
+		if(database_col_info[col_type].data_num_lenth) {
+			col_size = database_col_info[col_type].data_num_lenth;
 		}
-		else if(DATABASE_COL_TYPE_info[col_type].data_char_lenth) {
-			col_size = DATABASE_COL_TYPE_info[col_type].data_char_lenth;
+		else if(database_col_info[col_type].data_char_lenth) {
+			col_size = database_col_info[col_type].data_char_lenth;
 		}
 		else {
 			col_size = col.char_size();
 		}
 
-		if(col_type == DATABASE_COL_TYPE_BLOB || col_type == DATABASE_COL_TYPE_FLOAT) {
-			sprintf(col_type_string, "%s", DATABASE_COL_TYPE_info[col_type].data_type_name);
+		if(col_type == kDatabaseColTypeBlob || col_type == kDatabaseColTypeFloat) {
+			sprintf(col_type_string, "%s", database_col_info[col_type].data_type_name);
 		}
 		else {
 			sprintf(col_type_string, "%s(%u)%s", 
-				DATABASE_COL_TYPE_info[col_type].data_type_name, 
+				database_col_info[col_type].data_type_name, 
 				col_size, 
-				DATABASE_COL_TYPE_info[col_type].unsigned_flag ? " unsigned" : "");
+				database_col_info[col_type].unsigned_flag ? " unsigned" : "");
 		}
 
 		// 检测字段有效性;

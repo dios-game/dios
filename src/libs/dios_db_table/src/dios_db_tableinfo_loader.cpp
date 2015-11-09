@@ -9,7 +9,7 @@
 
 NS_DS_BEGIN
 
-static char* kColTypeName[DATABASE_COL_TYPE_MAX] = {
+static char* kColTypeName[kDatabaseColTypeMax] = {
 	"null",
 	"int16",
 	"uint16",
@@ -35,13 +35,13 @@ CDatabaseTableInfoLoader::~CDatabaseTableInfoLoader( void )
 
 DatabaseColType CDatabaseTableInfoLoader::ColTypeName2Type( const std::string& name )
 {
-	for(ds_int32 i=0; i<DATABASE_COL_TYPE_MAX; ++i) {
+	for(ds_int32 i=0; i<kDatabaseColTypeMax; ++i) {
 
 		if(name == kColTypeName[i]) {
 			return static_cast<DatabaseColType>(i);
 		}
 	}
-	return DATABASE_COL_TYPE_NULL;
+	return kDatabaseColTypeNil;
 }
 
 std::shared_ptr<CDatabaseTableInfo> CDatabaseTableInfoLoader::LoadTableFromXMLNode( rapidxml::xml_node<>* xml_node )

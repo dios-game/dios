@@ -91,6 +91,6 @@ public:
 
 NS_DS_END
 
-#define sDatabaseCustomEnv CDatabaseCustomEnv::GetInstancePtr()
+#define sDatabaseCustomEnv dios::CDatabaseCustomEnv::GetInstancePtr()
 
 #endif
