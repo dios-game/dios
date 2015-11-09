@@ -10,14 +10,14 @@ class CServerConnector : public dios::com::IConnectorSink{
 
 public:
 	virtual void OnConnect(const dios::com::IConnector::Ptr& connector){
-
+		sLogInfo("server connector connect");
 	}
 	virtual void OnRecv(const dios::com::IConnector::Ptr& connector, const void* buffer, unsigned int size){
 		sLogInfo("server recv: %s", (char*)buffer);
 		connector->Send(buffer, size);
 	}
 	virtual void OnDisconnect(const dios::com::IConnector::Ptr& connector){
-
+		sLogInfo("server connector disconnnect");
 	}
 
 	virtual IConnectorSink* Clone(){
@@ -32,14 +32,14 @@ class CClientConnector : public dios::com::IConnectorSink{
 
 public:
 	virtual void OnConnect(const dios::com::IConnector::Ptr& connector){
-
+		sLogInfo("client connector connect");
 	}
 	virtual void OnRecv(const dios::com::IConnector::Ptr& connector, const void* buffer, unsigned int size){
 		sLogInfo("client recv: %s", (char*)buffer);
-		connector->Send(buffer, size);
+		// connector->Send(buffer, size);
 	}
 	virtual void OnDisconnect(const dios::com::IConnector::Ptr& connector){
-
+		sLogInfo("client connector disconnect");
 	}
 
 	virtual IConnectorSink* Clone(){
@@ -88,6 +88,7 @@ void InitLog(){
 void TestNetwork(){
 	InitLog();
 
+	sLogInfo("TestNetwork start");
 	sComContext->LoadPlugin("network_libevent");
 
 	dios::com::INetworkContext::Ptr context = sComContext->CreateCom<dios::com::INetworkContext>("network_libevent");

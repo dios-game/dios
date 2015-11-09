@@ -50,7 +50,7 @@ CServer::~CServer( void ) {
 bool CServer::Init( const char * ip, unsigned int port, IConnectorSink* sink ) {
 	
 	//	request socket
-	net_shutdown_listener_ = net_service_impl_->RegisterShutdownEventListener(boost::bind(&IServer::Shutdown, shared_from_this()));
+	net_shutdown_listener_ = net_service_impl_->RegisterShutdownEventListener(std::bind(&IServer::Shutdown, shared_from_this()));
 	sink_ = sink;
 
 	//	config address

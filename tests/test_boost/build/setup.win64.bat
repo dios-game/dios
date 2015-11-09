@@ -22,9 +22,9 @@ if not exist  proj.win64 md proj.win64
 cd proj.win64
 
 echo #####提示：开始构建#####
-cmake -G %dios_GENERATOR_X64% -Ddios_CMAKE_PLATFORM=WIN64 ..
+cmake -G %dios_GENERATOR_X64% -DDIOS_CMAKE_PLATFORM=WIN64 ..
 if %errorlevel% neq 0 goto :cmEnd
-cmake -G %dios_GENERATOR_X64% -Ddios_CMAKE_PLATFORM=WIN64 ..
+cmake -G %dios_GENERATOR_X64% -DDIOS_CMAKE_PLATFORM=WIN64 ..
 if %errorlevel% neq 0 goto :cmEnd
 echo #####提示：构建结束#####
 

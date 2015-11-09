@@ -33,7 +33,7 @@ public:
 
 
 	bool Init(int sock_id, IConnectorSink* sink, struct sockaddr* remote_addr);
-	void ShutDownImmediately(void);
+	void ShutdownImmediately(void);
 
 	void OnSend(unsigned int size);
 	void OnRecv(const void * buffer, unsigned int size);

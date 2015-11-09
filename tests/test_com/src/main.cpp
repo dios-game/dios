@@ -10,4 +10,5 @@ int main(int argc, char **argv)
 	TestLog();
 	TestNetwork();
 	printf("hello world\n");
+	getchar();
 }
