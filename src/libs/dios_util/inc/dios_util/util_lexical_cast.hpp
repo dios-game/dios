@@ -45,6 +45,14 @@ namespace detail
 		}
 	};
 	template <typename From>
+	struct Converter<unsigned int, From>
+	{
+		static unsigned int convert(const From& from)
+		{
+			return static_cast<unsigned int>(std::atoi(from));
+		}
+	};
+	template <typename From>
 	struct Converter<long, From>
 	{
 		static long convert(const From& from)

@@ -10,8 +10,9 @@ NS_UTIL_BOOST_BEGIN
 
 #define DEFAULT_TOKEN_WCHAR L",，"
 
-template < typename string_code>
-class TToken{
+template<typename CCharset>
+class TToken
+{
 public:
 	typedef std::vector<std::string>::iterator iterator;
 
@@ -24,10 +25,10 @@ public:
 
 		boost::char_separator<wchar_t> sep(DEFAULT_TOKEN_WCHAR);  
 
-		std::wstring winput_string = string_code::s2ws(input_string);
+		std::wstring winput_string = CCharset::s2ws(input_string);
 		MyToken tok(winput_string, sep);
 		for(MyToken::iterator beg=tok.begin(); beg!=tok.end();++beg){
-			strings_.push_back(string_code::ws2s(*beg));
+			strings_.push_back(CCharset::ws2s(*beg));
 		}
 	}
 
@@ -35,13 +36,13 @@ public:
 	{
 		typedef boost::tokenizer<boost::char_separator<wchar_t> ,std::wstring::const_iterator,std::wstring> MyToken;
 
-		std::wstring wtoken_string = string_code::s2ws(token_string);
+		std::wstring wtoken_string = CCharset::s2ws(token_string);
 		boost::char_separator<wchar_t> sep(wtoken_string.c_str());  
 
-		std::wstring winput_string = string_code::s2ws(input_string);
+		std::wstring winput_string = CCharset::s2ws(input_string);
 		MyToken tok(winput_string, sep);
 		for(MyToken::iterator beg=tok.begin(); beg!=tok.end();++beg){
-			strings_.push_back(string_code::ws2s(*beg));
+			strings_.push_back(CCharset::ws2s(*beg));
 		}
 	}
 
@@ -51,10 +52,10 @@ public:
 
 		boost::char_separator<wchar_t> sep(wtoken_string.c_str());  
 
-		std::wstring winput_string = string_code::s2ws(input_string);
+		std::wstring winput_string = CCharset::s2ws(input_string);
 		MyToken tok(winput_string, sep);
 		for(MyToken::iterator beg=tok.begin(); beg!=tok.end();++beg){
-			strings_.push_back(string_code::ws2s(*beg));
+			strings_.push_back(CCharset::ws2s(*beg));
 		}
 	}
 
@@ -65,9 +66,9 @@ private:
 	std::vector<std::string> strings_;
 };
 
-typedef TToken<dios::util::string::uft8> CToken;
+typedef TToken<dios::util::CCharsetUTF8> CToken;
 
-template < typename string_code = dios::util::string::uft8>
+template < typename CCharset = dios::util::CCharsetUTF8>
 class TTokenVector:public std::vector<std::string>
 {
 public:
@@ -77,10 +78,10 @@ public:
 
 		boost::char_separator<wchar_t> sep(DEFAULT_TOKEN_WCHAR);  
 
-		std::wstring winput_string = string_code::s2ws(input_string);
+		std::wstring winput_string = CCharset::s2ws(input_string);
 		MyToken tok(winput_string, sep);
 		for(MyToken::iterator beg=tok.begin(); beg!=tok.end();++beg){
-			push_back(string_code::ws2s(*beg));
+			push_back(CCharset::ws2s(*beg));
 		}
 	}
 
@@ -88,13 +89,13 @@ public:
 	{
 		typedef boost::tokenizer<boost::char_separator<wchar_t> ,std::wstring::const_iterator,std::wstring> MyToken;
 
-		std::wstring wtoken_string = string_code::s2ws(token_string);
+		std::wstring wtoken_string = CCharset::s2ws(token_string);
 		boost::char_separator<wchar_t> sep(wtoken_string.c_str());  
 
-		std::wstring winput_string = string_code::s2ws(input_string);
+		std::wstring winput_string = CCharset::s2ws(input_string);
 		MyToken tok(winput_string, sep);
 		for(MyToken::iterator beg=tok.begin(); beg!=tok.end();++beg){
-			push_back(string_code::ws2s(*beg));
+			push_back(CCharset::ws2s(*beg));
 		}
 	}
 
@@ -104,15 +105,15 @@ public:
 
 		boost::char_separator<wchar_t> sep(wtoken_string.c_str());  
 
-		std::wstring winput_string = string_code::s2ws(input_string);
+		std::wstring winput_string = CCharset::s2ws(input_string);
 		MyToken tok(winput_string, sep);
 		for(MyToken::iterator beg=tok.begin(); beg!=tok.end();++beg){
-			push_back(string_code::ws2s(*beg));
+			push_back(CCharset::ws2s(*beg));
 		}
 	}
 };
 
-typedef TTokenVector<dios::util::string::uft8> CTokenVector;
+typedef TTokenVector<dios::util::CCharsetUTF8> CTokenVector;
 
 NS_UTIL_BOOST_END
 NS_DS_END

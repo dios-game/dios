@@ -7,7 +7,7 @@
 // ###################################################
 /*
 
-PLUGIN_EXPORT(plugin_name){
+PLUGIN_EXPORT(){
 	PLUGIN_EXPORT_COM(com_name, class_com)
 	PLUGIN_EXPORT_COM(com_name, class_com)
 	PLUGIN_EXPORT_COM(com_name, class_com)
@@ -27,29 +27,37 @@ PLUGIN_EXPORT(plugin_name){
 #define _PLUGIN_DLL_DECL
 #endif // DIOS_PLATFORM_WIN32
 
-#define PLUGIN_EXPORT(plugin_name)		\
-extern "C" {								\
-	_PLUGIN_DLL_DECL void  DllPlugin(std::shared_ptr<dios::CDynamicLib>&);\
-};											\
-	extern "C" void  DllPlugin(std::shared_ptr<dios::CDynamicLib>& dyn_lib_ptr)
+#define PLUGIN_EXPORT_BEGIN() \
+extern "C" { \
+	_PLUGIN_DLL_DECL void  DllPlugin(std::shared_ptr<dios::CDynamicLib>&); \
+}; \
+extern "C" void  DllPlugin(std::shared_ptr<dios::CDynamicLib>& dyn_lib_ptr) {
 
 #define PLUGIN_EXPORT_COM(com_name,class_com)	 sComContext->AddFactory<class_com>( com_name, dyn_lib_ptr );
 
+#define PLUGIN_EXPORT_END() \
+}
+
 #else // static plug-in export
 
-#define _PLUGIN_EXPORT_CLASS_NAME(plugin_name)   PluginExport##plugin_name
+#define _PLUGIN_EXPORT_CLASS_NAME()   PluginExport
 
-#define _PLUGIN_EXPORT_CLASS_INSTANCE_NAME(plugin_name)   PluginExportInstance##plugin_name
+#define _PLUGIN_EXPORT_CLASS_INSTANCE_NAME()   PluginExportInstance
 
-#define PLUGIN_EXPORT(plugin_name)                        \
-class _PLUGIN_EXPORT_CLASS_NAME(plugin_name)                      \
-{                                                   \
-public:                                             \
-	_PLUGIN_EXPORT_CLASS_NAME(plugin_name)();                     \
-} _PLUGIN_EXPORT_CLASS_INSTANCE_NAME(plugin_name);                \
-_PLUGIN_EXPORT_CLASS_NAME(plugin_name)::_PLUGIN_EXPORT_CLASS_NAME(plugin_name)()
+#define PLUGIN_EXPORT_BEGIN() \
+namespace { \
+	class _PLUGIN_EXPORT_CLASS_NAME() \
+	{ \
+	public: \
+	_PLUGIN_EXPORT_CLASS_NAME()(); \
+	} _PLUGIN_EXPORT_CLASS_INSTANCE_NAME(); \
+	_PLUGIN_EXPORT_CLASS_NAME()::_PLUGIN_EXPORT_CLASS_NAME()() {\ 
 
 #define PLUGIN_EXPORT_COM(com_name,class_com)	 sComContext->AddFactory<class_com>( com_name );
+
+#define PLUGIN_EXPORT_END() \
+	} \
+}
 
 #endif
 

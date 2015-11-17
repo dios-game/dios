@@ -1,0 +1,45 @@
+#include "precompiled.h"
+#include "util_charset_chs.h"
+
+#include <locale.h>
+
+NS_DS_BEGIN
+NS_UTIL_BEGIN
+
+std::string CCharsetCHS::ws2s( const std::wstring& ws )
+{
+#ifdef _WIN32
+	_configthreadlocale(_ENABLE_PER_THREAD_LOCALE);
+#endif
+	std::string curLocale = setlocale(LC_ALL, NULL);        // curLocale = "C";
+	setlocale(LC_ALL, "chs");
+	const wchar_t* _Source = ws.c_str();
+	size_t _Dsize = 2 * ws.size() + 1;
+	char *_Dest = new char[_Dsize];
+	memset(_Dest,0,_Dsize);
+	wcstombs(_Dest,_Source,_Dsize);
+	std::string result = _Dest;
+	delete []_Dest;
+	setlocale(LC_ALL, curLocale.c_str());
+	return result;
+}
+
+std::wstring CCharsetCHS::s2ws( const std::string& s )
+{
+#ifdef _WIN32
+	_configthreadlocale(_ENABLE_PER_THREAD_LOCALE);
+#endif
+	setlocale(LC_ALL, "chs"); 
+	const char* _Source = s.c_str();
+	size_t _Dsize = s.size() + 1;
+	wchar_t *_Dest = new wchar_t[_Dsize];
+	wmemset(_Dest, 0, _Dsize);
+	mbstowcs(_Dest,_Source,_Dsize);
+	std::wstring result = _Dest;
+	delete []_Dest;
+	setlocale(LC_ALL, "C");
+	return result;
+}
+
+NS_UTIL_END
+NS_DS_END
