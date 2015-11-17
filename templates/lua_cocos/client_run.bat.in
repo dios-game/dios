@@ -1,0 +1,7 @@
+@echo off
+
+set ocd=%cd%
+cd /d %~dp0
+
+cd resources
+call ..\runtime\bin\win32\@MODULE_BE_CREATED@.exe 
